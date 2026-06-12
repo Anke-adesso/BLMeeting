@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Claude for adesso MS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Fira+Sans+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  @page { size: A4; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  .print-bar {
+    background: #005CAB;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: "Fira Sans", Lato, Arial, sans-serif;
+    font-size: 9pt;
+    color: rgba(255,255,255,0.8);
+    gap: 10px;
+  }
+  .print-bar span { font-size: 8.5pt; }
+  .print-btn {
+    background: #fff;
+    color: #006EC7;
+    border: none;
+    padding: 7px 18px;
+    border-radius: 3px;
+    font-family: "Fira Sans", Lato, Arial, sans-serif;
+    font-size: 9pt;
+    font-weight: 700;
+    cursor: pointer;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+  .print-btn:hover { background: #EEF5FC; }
+  .lang-btn {
+    background: rgba(255,255,255,0.15);
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.4);
+    padding: 5px 14px;
+    border-radius: 3px;
+    font-family: "Fira Sans", Lato, Arial, sans-serif;
+    font-size: 9pt;
+    font-weight: 700;
+    cursor: pointer;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+    transition: background 0.15s;
+  }
+  .lang-btn:hover { background: rgba(255,255,255,0.28); }
+
+  body {
+    font-family: "Fira Sans", Lato, Arial, sans-serif;
+    background: #e8edf2;
+    color: #000;
+    font-size: 8pt;
+    line-height: 1.4;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    min-height: 100vh;
+  }
+
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    margin: 0 auto;
+    background: #fff;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+  }
+
+  @media print {
+    .print-bar { display: none; }
+    body { background: #fff; }
+    .page { width: 210mm; height: 297mm; overflow: hidden; box-shadow: none; margin: 0; }
+  }
+
+  /* HEADER */
+  .header {
+    background: #006EC7;
+    padding: 7mm 10mm 6mm;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .header-eyebrow {
+    font-family: "Fira Sans Condensed", "Fira Sans", Lato, Arial Narrow, sans-serif;
+    font-size: 6.5pt;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 2mm;
+  }
+  .header-title {
+    font-family: "Fira Sans Condensed", "Fira Sans", Lato, Arial Narrow, sans-serif;
+    font-size: 26pt;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.0;
+    margin-bottom: 2mm;
+  }
+  .header-subtitle {
+    font-size: 9.5pt;
+    font-weight: 400;
+    color: rgba(255,255,255,0.82);
+  }
+  .header-logo {
+    height: 10mm;
+    width: auto;
+    margin-top: 1mm;
+  }
+
+  /* BODY */
+  .body { padding: 4mm 10mm 3mm; }
+
+  /* INTRO STRIP */
+  .intro-strip {
+    background: #006EC7;
+    border-radius: 2px;
+    padding: 4mm;
+    display: flex;
+    gap: 3mm;
+    margin-bottom: 3mm;
+  }
+  .intro-box {
+    flex: 1;
+    background: rgba(255,255,255,0.12);
+    border-radius: 2px;
+    padding: 3mm;
+  }
+  .intro-label {
+    font-family: "Fira Sans Condensed", "Fira Sans", Lato, Arial Narrow, sans-serif;
+    font-size: 6.5pt;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 2mm;
+  }
+  .intro-text {
+    font-size: 7.5pt;
+    color: rgba(255,255,255,0.92);
+    line-height: 1.4;
+  }
+  .intro-text strong { color: #fff; }
+
+  /* ROW */
+  .row { display: flex; gap: 3mm; margin-bottom: 3mm; }
+
+  /* CARD */
+  .card {
+    background: #F7F5F3;
+    border-left: 3px solid #006EC7;
+    border-radius: 2px;
+    padding: 3mm 3.5mm;
+    flex: 1;
+  }
+  .card.accent-teal  { border-left-color: #1aab83; }
+  .card.accent-orange { border-left-color: #FF9868; }
+  .card.accent-green  { border-left-color: #5a9800; }
+
+  .card-eyebrow {
+    font-family: "Fira Sans Condensed", "Fira Sans", Lato, Arial Narrow, sans-serif;
+    font-size: 6pt;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #887D75;
+    margin-bottom: 1.5mm;
+  }
+  .card-title {
+    font-family: "Fira Sans Condensed", "Fira Sans", Lato, Arial Narrow, sans-serif;
+    font-size: 11pt;
+    font-weight: 700;
+    color: #006EC7;
+    margin-bottom: 2mm;
+    line-height: 1.1;
+  }
+  .card.accent-teal  .card-title { color: #1aab83; }
+  .card.accent-orange .card-title { color: #cc6e3a; }
+  .card.accent-green  .card-title { color: #5a9800; }
+
+  /* CAP GRID */
+  .cap-grid { display: flex; flex-wrap: wrap; gap: 2mm; }
+  .cap-item {
+    background: #fff;
+    border: 1px solid #E7E5E3;
+    border-radius: 2px;
+    padding: 2.5mm;
+    width: calc(33.33% - 1.5mm);
+  }
+  .cap-item strong { display: block; font-size: 8pt; font-weight: 700; color: #000; margin-bottom: 1mm; }
+  .cap-item span { font-size: 7.5pt; color: #5A524C; line-height: 1.35; }
+
+  /* TRY GRID */
+  .try-grid { display: flex; gap: 2mm; }
+  .try-item {
+    flex: 1;
+    background: #fff;
+    border: 1px solid #E7E5E3;
+    border-radius: 2px;
+    padding: 2.5mm;
+  }
+  .try-label { font-weight: 700; font-size: 8pt; color: #1aab83; margin-bottom: 1.5mm; }
+  .try-prompt { font-size: 7pt; color: #887D75; font-style: italic; margin-bottom: 1.5mm; line-height: 1.3; }
+  .try-use { font-size: 7pt; color: #5A524C; line-height: 1.35; }
+
+  /* BULLET LIST */
+  .blist { list-style: none; margin-top: 1.5mm; }
+  .blist li {
+    padding: 1.5mm 0 1.5mm 7mm;
+    position: relative;
+    font-size: 7.5pt;
+    color: #5A524C;
+    border-bottom: 1px solid #E7E5E3;
+    line-height: 1.35;
+  }
+  .blist li:last-child { border-bottom: none; }
+  .blist li::before { content: '\2192'; position: absolute; left: 0; color: #006EC7; font-weight: 700; }
+  .tag {
+    display: inline-block;
+    background: #006EC7;
+    color: #fff;
+    font-family: "Fira Sans Condensed", "Fira Sans", Lato, Arial Narrow, sans-serif;
+    font-size: 6.5pt;
+    font-weight: 700;
+    padding: 0.5pt 3pt;
+    border-radius: 1px;
+    margin-right: 2px;
+  }
+
+  /* FOOTER */
+  .footer {
+    background: #F7F5F3;
+    border-top: 2px solid #006EC7;
+    padding: 3.5mm 10mm;
+    display: flex;
+    gap: 6mm;
+  }
+  .footer-col { flex: 1; }
+  .footer-label {
+    font-family: "Fira Sans Condensed", "Fira Sans", Lato, Arial Narrow, sans-serif;
+    font-size: 6.5pt;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #006EC7;
+    margin-bottom: 1.5mm;
+  }
+  .footer-text { font-size: 8pt; color: #5A524C; line-height: 1.4; }
+  .footer-text strong { color: #000; }
+
+
+  /* ─── LINKS SECTION ─── */
+  .links-section {
+    margin: 0 10mm 3mm;
+    background: #F0EDE9;
+    border-radius: 3px;
+    padding: 3mm 5mm;
+    display: flex;
+    align-items: center;
+    gap: 4mm;
+    flex-wrap: wrap;
+  }
+  @media print { .links-section { display: none !important; } }
+  .links-label {
+    font-family: "Fira Sans Condensed", "Fira Sans", Lato, Arial Narrow, sans-serif;
+    font-size: 6.5pt; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; color: #887D75;
+    white-space: nowrap;
+  }
+  .links-chips { display: flex; gap: 2mm; flex-wrap: wrap; }
+  .link-chip {
+    display: inline-flex; align-items: center; gap: 1.5mm;
+    background: #fff; border: 1px solid #C8D4DF; border-radius: 3px;
+    padding: 2mm 3.5mm;
+    font-family: "Fira Sans", Lato, Arial, sans-serif;
+    font-size: 8pt; font-weight: 600; color: #006EC7;
+    text-decoration: none; letter-spacing: 0.01em;
+    transition: background 0.12s, border-color 0.12s, box-shadow 0.12s;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  }
+  .link-chip:hover { background: #EEF5FC; border-color: #006EC7; box-shadow: 0 2px 6px rgba(0,110,199,0.15); }
+  .link-chip .chip-icon { font-size: 9pt; line-height: 1; }
+
+  /* ─── JOURNEY SECTION ─── */
+  .journey-section {
+    margin: 0 10mm 3mm;
+    background: linear-gradient(135deg, #005CAB 0%, #006EC7 100%);
+    border-radius: 3px;
+    padding: 5mm 6mm;
+    text-align: center;
+  }
+  @media print { .journey-section { display: none !important; } .links-section { display: none !important; } .role-view:not(.active) { display: none !important; } .back-btn { display: none !important; } }
+  .journey-title {
+    font-family: "Fira Sans Condensed", "Fira Sans", Lato, Arial Narrow, sans-serif;
+    font-size: 14pt; font-weight: 700; color: #fff; line-height: 1.1; margin-bottom: 1.5mm;
+  }
+  .journey-sub { font-size: 8pt; color: rgba(255,255,255,0.82); margin-bottom: 4mm; }
+  .journey-btns { display: flex; gap: 3mm; justify-content: center; }
+  .role-btn {
+    background: rgba(255,255,255,0.95); color: #006EC7; border: none; border-radius: 3px;
+    padding: 3mm 4mm;
+    font-family: "Fira Sans Condensed", "Fira Sans", Lato, Arial Narrow, sans-serif;
+    font-size: 9pt; font-weight: 700; cursor: pointer; flex: 1;
+    letter-spacing: 0.02em; transition: background 0.15s, box-shadow 0.12s;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.12); line-height: 1.3;
+  }
+  .role-btn:hover { background: #fff; box-shadow: 0 3px 10px rgba(0,0,0,0.18); }
+  .role-btn .role-tag {
+    display: block; font-size: 6pt; font-weight: 600; letter-spacing: 0.1em;
+    text-transform: uppercase; color: #887D75; margin-bottom: 0.5mm;
+  }
+  /* ─── ROLE VIEWS ─── */
+  .role-view { display: none; padding: 4mm 10mm 3mm; }
+  .role-view.active { display: block; }
+  .back-btn {
+    display: inline-flex; align-items: center; gap: 2mm;
+    background: none; border: 1px solid #C8D4DF; color: #5A524C;
+    font-family: "Fira Sans", Lato, Arial, sans-serif;
+    font-size: 7.5pt; font-weight: 600; padding: 1.5mm 3.5mm;
+    border-radius: 2px; cursor: pointer; margin-bottom: 3mm; letter-spacing: 0.02em;
+  }
+  .back-btn:hover { background: #F0EDE9; border-color: #9AACBA; }
+  .role-header-block { margin-bottom: 3mm; padding-bottom: 2mm; border-bottom: 1px solid #E7E5E3; }
+  .role-eyebrow {
+    font-family: "Fira Sans Condensed", "Fira Sans", Lato, Arial Narrow, sans-serif;
+    font-size: 6.5pt; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; color: #006EC7; margin-bottom: 1mm;
+  }
+  .role-title {
+    font-family: "Fira Sans Condensed", "Fira Sans", Lato, Arial Narrow, sans-serif;
+    font-size: 18pt; font-weight: 700; color: #1a1a1a; line-height: 1.1; margin-bottom: 1.5mm;
+  }
+  .role-subtitle { font-size: 8pt; color: #5A524C; line-height: 1.4; }
+  .uc-grid { display: flex; flex-wrap: wrap; gap: 2mm; margin-bottom: 3mm; }
+  .uc-item {
+    background: #F7F5F3; border: 1px solid #E7E5E3;
+    border-left: 3px solid #006EC7; border-radius: 2px; padding: 2.5mm;
+    width: calc(50% - 1mm);
+  }
+  .uc-item.dev-accent { border-left-color: #FF9868; }
+  .uc-item.chatgpt-accent { border-left-color: #1aab83; }
+  .uc-name { font-size: 8pt; font-weight: 700; color: #000; margin-bottom: 1mm; }
+  .uc-desc { font-size: 7pt; color: #5A524C; line-height: 1.35; }
+  .prompt-box {
+    background: #1a1a1a; border-radius: 2px; padding: 2.5mm; margin-bottom: 2mm;
+  }
+  .prompt-box code {
+    font-family: 'Courier New', monospace; font-size: 6.5pt; color: #a8d4f5;
+    line-height: 1.5; display: block;
+  }
+  .prompt-label {
+    font-size: 6pt; font-weight: 700; letter-spacing: 0.08em;
+    text-transform: uppercase; color: #887D75; margin-bottom: 1.5mm;
+  }
+  .diff-row { display: flex; gap: 2mm; margin-top: 2mm; }
+  .diff-item { flex: 1; padding: 2.5mm; border-radius: 2px; border: 1px solid #E7E5E3; }
+  .diff-item.pro { background: #f0f9f0; border-left: 3px solid #5a9800; }
+  .diff-item.neutral { background: #F7F5F3; border-left: 3px solid #C8D4DF; }
+  .diff-label { font-size: 6pt; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 1.5mm; }
+  .diff-item.pro .diff-label { color: #5a9800; }
+  .diff-item.neutral .diff-label { color: #887D75; }
+  .diff-text { font-size: 7pt; color: #5A524C; line-height: 1.4; }
+  .card-text { font-size: 7.5pt; color: #5A524C; line-height: 1.4; margin-top: 1.5mm; }
+</style>
+</head>
+<body>
+
+<div class="print-bar" style="position:sticky;top:0;z-index:100;">
+  <span data-key="printbar_hint">Open in Chrome for best results → then click Print</span>
+  <div style="display:flex;gap:8px;align-items:center;">
+    <button class="lang-btn" onclick="toggleLang()" id="langBtn">DE</button>
+    <button class="print-btn" onclick="window.print()">🖨 Print / Save as PDF</button>
+  </div>
+</div>
+
+<div class="page">
+<div class="header">
+  <div>
+    <div class="header-eyebrow" data-key="header_eyebrow">adesso MS Business Line · June 2026</div>
+    <div class="header-title" data-key="header_title">Claude for adesso</div>
+    <div class="header-subtitle" data-key="header_subtitle">Your AI at work — what it is, what it can do, and where to start.</div>
+  </div>
+  <img class="header-logo" src="data:image/png;base64,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" alt="adesso">
+</div>
+
+<div class="body">
+
+  <div class="intro-strip">
+    <div class="intro-box">
+      <div class="intro-label" data-key="intro1_label">What it is</div>
+      <div class="intro-text" data-key="intro1_text">Claude is Anthropic's AI — built for reasoning and problem-solving. Known for strong document handling and saying "I don't know" instead of making things up.</div>
+    </div>
+    <div class="intro-box">
+      <div class="intro-label" data-key="intro2_label">How you access it</div>
+      <div class="intro-text" data-key="intro2_text">Request your Enterprise account via the <strong>matrix24</strong> tool, then log in at <strong>claude.ai</strong> via adesso SSO. Add-ins available in Word, Outlook, Excel, and PowerPoint.</div>
+    </div>
+    <div class="intro-box">
+      <div class="intro-label" data-key="intro3_label">Your data</div>
+      <div class="intro-text" data-key="intro3_text">On the Enterprise plan: Anthropic does <strong>not</strong> train on your data. Conversations stay private and are not used to improve Claude models.</div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="card">
+      <div class="card-eyebrow" data-key="cap_eyebrow">Capabilities</div>
+      <div class="card-title" data-key="cap_title">What Claude can do</div>
+      <div class="cap-grid">
+        <div class="cap-item"><strong data-key="cap1_title">Read &amp; analyse docs</strong><span data-key="cap1_text">Upload PDFs, transcripts, or paste text. Get summaries, extract decisions and action items.</span></div>
+        <div class="cap-item"><strong data-key="cap2_title">Write &amp; rewrite</strong><span data-key="cap2_text">Emails, reports, proposals, status updates. Specify tone and audience — iterate until it's right.</span></div>
+        <div class="cap-item"><strong data-key="cap3_title">Compare &amp; review</strong><span data-key="cap3_text">Two contract versions or proposals? Claude flags conflicts and new clauses in minutes.</span></div>
+        <div class="cap-item"><strong data-key="cap4_title">Code &amp; build</strong><span data-key="cap4_text">Write, review, and explain code. Generate prototypes, UML diagrams, and one-off tools.</span></div>
+        <div class="cap-item"><strong data-key="cap5_title">Analyse data</strong><span data-key="cap5_text">Paste a table or CSV. Get the narrative: trends, outliers, the "so what."</span></div>
+        <div class="cap-item"><strong data-key="cap6_title">Think with you</strong><span data-key="cap6_text">Brainstorm angles, pressure-test arguments. Critical feedback — not just agreement.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="card accent-teal">
+      <div class="card-eyebrow" data-key="try_eyebrow">Start here</div>
+      <div class="card-title" data-key="try_title">Try these on Monday</div>
+      <div class="try-grid">
+        <div class="try-item">
+          <div class="try-label" data-key="try1_label">Summarise a document</div>
+          <div class="try-prompt" data-key="try1_prompt">"Give me a 5-bullet executive summary. Flag open questions and unresolved decisions."</div>
+          <div class="try-use" data-key="try1_use">Upload any PDF, report, or meeting transcript.</div>
+        </div>
+        <div class="try-item">
+          <div class="try-label" data-key="try2_label">Rewrite an email</div>
+          <div class="try-prompt" data-key="try2_prompt">"Rewrite this. Same content, shorter, more direct. Cut corporate filler."</div>
+          <div class="try-use" data-key="try2_use">Paste the draft. Specify the audience if needed.</div>
+        </div>
+        <div class="try-item">
+          <div class="try-label" data-key="try3_label">Get critical feedback</div>
+          <div class="try-prompt" data-key="try3_prompt">"What are the three weakest parts of this? Don't soften it."</div>
+          <div class="try-use" data-key="try3_use">Paste a proposal or plan. Pressure-test before you send.</div>
+        </div>
+        <div class="try-item">
+          <div class="try-label" data-key="try4_label">Beat the blank page</div>
+          <div class="try-prompt" data-key="try4_prompt">"Give me 10 different angles on [topic]. Genuinely different — not variations."</div>
+          <div class="try-use" data-key="try4_use">Naming, framing, workshop planning, any stuck moment.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="card accent-orange">
+      <div class="card-eyebrow" data-key="power_eyebrow">Go deeper</div>
+      <div class="card-title" data-key="power_title">Power moves</div>
+      <ul class="blist">
+        <li><span class="tag">Projects</span> <span data-key="power1_text">Persistent workspace per engagement — files, context, preferences. No re-briefing every session.</span></li>
+        <li><span class="tag">Instructions</span> <span data-key="power2_text">Set your role, tone, constraints once in Settings. Applied to every conversation.</span></li>
+        <li><span class="tag">Iterate</span> <span data-key="power3_text">"Make this sharper." "The second paragraph isn't landing." "Sound less like AI wrote it."</span></li>
+        <li><span class="tag">Context</span> <span data-key="power4_text">Up to 1 million tokens — entire project docs and long specs in one conversation.</span></li>
+      </ul>
+    </div>
+    <div class="card accent-green">
+      <div class="card-eyebrow" data-key="know_eyebrow">Good to know</div>
+      <div class="card-title" data-key="know_title">What Claude doesn't do</div>
+      <ul class="blist">
+        <li data-key="know1_text">No live internet by default — knowledge has a cutoff. Don't use for real-time data without web search enabled.</li>
+        <li data-key="know2_text">No memory across conversations by default — unless you use Projects on claude.ai.</li>
+        <li data-key="know3_text">Will say "I don't know" rather than guess. Intentional — and useful.</li>
+        <li data-key="know4_text">MCP connection to M365 not yet available at adesso. Add-ins (Word, Outlook, Excel, PowerPoint) are live.</li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+
+
+<!-- COMMUNITY LINKS -->
+<div class="links-section">
+  <span class="links-label" data-key="links_label">Community &amp; Resources</span>
+  <div class="links-chips">
+    <a class="link-chip" href="https://teams.microsoft.com/l/channel/19%3A884ff6e79daf41c0854d229d7602ad95%40thread.tacv2/%F0%9F%92%BB%20Microsoft%20AI?groupId=9e331830-ebe9-4f83-a15b-069269403655&tenantId=3d355765-67d9-47cd-9c7a-bf31179f56eb" target="_blank">
+      <span class="chip-icon">💬</span><span data-key="link1_label">MS AI Peer Group</span>
+    </a>
+    <a class="link-chip" href="https://adgrowth.adesso-group.com/learn/dashboard/channel/42" target="_blank">
+      <span class="chip-icon">📚</span><span data-key="link2_label">Claude Channel on adgrowth</span>
+    </a>
+  </div>
+</div>
+
+<!-- FIND YOUR JOURNEY -->
+<div class="journey-section">
+  <div class="journey-title" data-key="journey_title">Find your journey</div>
+  <div class="journey-sub" data-key="journey_sub">Same tool. Different entry points. Pick your role.</div>
+  <div class="journey-btns">
+    <button class="role-btn" onclick="showRole('consultant')">
+      <span class="role-tag" data-key="journey_tag1">Role</span>
+      <span data-key="journey_btn1">Consultant / PM</span>
+    </button>
+    <button class="role-btn" onclick="showRole('developer')">
+      <span class="role-tag" data-key="journey_tag2">Role</span>
+      <span data-key="journey_btn2">Developer</span>
+    </button>
+    <button class="role-btn" onclick="showRole('chatgpt')">
+      <span class="role-tag" data-key="journey_tag3">Already using</span>
+      <span data-key="journey_btn3">ChatGPT user</span>
+    </button>
+  </div>
+</div>
+
+<!-- ROLE: CONSULTANT/PM -->
+<div class="role-view" id="role-consultant">
+  <button class="back-btn" onclick="backToOverview()" data-key="back_btn">&#8592; Back to overview</button>
+  <div class="role-header-block">
+    <div class="role-eyebrow" data-key="r1_eyebrow">Consultant · PM · Project Lead</div>
+    <div class="role-title" data-key="r1_title">Client work, faster.</div>
+    <div class="role-subtitle" data-key="r1_sub">From 12 unread documents to a briefed team. From meeting chaos to a clean status update. Claude handles the overhead so you can do the actual work.</div>
+  </div>
+  <div class="uc-grid">
+    <div class="uc-item"><div class="uc-name" data-key="r1_uc1_name">Ask your documents</div><div class="uc-desc" data-key="r1_uc1_desc">Upload a PDF or paste text. Ask anything. Get answers — not a table of contents. Works across 20+ docs in one go.</div></div>
+    <div class="uc-item"><div class="uc-name" data-key="r1_uc2_name">Meeting → actions</div><div class="uc-desc" data-key="r1_uc2_desc">Paste a transcript or summary. Get decisions, open items, and action owners — clean and ready to share.</div></div>
+    <div class="uc-item"><div class="uc-name" data-key="r1_uc3_name">Draft emails &amp; docs</div><div class="uc-desc" data-key="r1_uc3_desc">Give bullet points. Get a client-ready draft. Tone, audience, length — all specifiable. Iterate in seconds.</div></div>
+    <div class="uc-item"><div class="uc-name" data-key="r1_uc4_name">Compare versions</div><div class="uc-desc" data-key="r1_uc4_desc">Two contract drafts or spec versions? Claude flags what changed, what's new, what's potentially problematic.</div></div>
+    <div class="uc-item"><div class="uc-name" data-key="r1_uc5_name">Status reports</div><div class="uc-desc" data-key="r1_uc5_desc">Weekly status, auto-structured: Done / In Progress / Blocked / Next. Paste your notes, get the update.</div></div>
+    <div class="uc-item"><div class="uc-name" data-key="r1_uc6_name">Pressure-test a proposal</div><div class="uc-desc" data-key="r1_uc6_desc">"What are the three weakest points? Don't soften it." — before the client sees it.</div></div>
+  </div>
+  <div class="card accent-teal" style="margin-bottom:3mm;">
+    <div class="card-eyebrow" data-key="r1_monday_eyebrow">Try Monday</div>
+    <div class="card-title" data-key="r1_monday_title">3 prompts to start with</div>
+    <div class="prompt-label" data-key="r1_p1_label">Before a client call</div>
+    <div class="prompt-box"><code data-key="r1_p1">"I have 30 minutes before the call. Here's the deck. What are the three things I need to address or clarify?"</code></div>
+    <div class="prompt-label" data-key="r1_p2_label">After a meeting</div>
+    <div class="prompt-box"><code data-key="r1_p2">"Turn these notes into a steering committee update. Format: Done / In Progress / Blocked / Decisions needed."</code></div>
+    <div class="prompt-label" data-key="r1_p3_label">Before sending</div>
+    <div class="prompt-box" style="margin-bottom:0"><code data-key="r1_p3">"Compare these two requirement versions. What changed? What's new? Flag anything that could create conflict."</code></div>
+  </div>
+  <div class="card" style="margin-bottom:0;">
+    <div class="card-eyebrow" data-key="r1_power_eyebrow">Power move</div>
+    <div class="card-title" data-key="r1_power_title">Projects — brief once, use all engagement</div>
+    <div class="card-text" data-key="r1_power_text">Create a Project in claude.ai for each client engagement. Upload the key docs, set the context. Every conversation in that project has full context — no re-briefing, no explaining the background again.</div>
+  </div>
+</div>
+
+<!-- ROLE: DEVELOPER -->
+<div class="role-view" id="role-developer">
+  <button class="back-btn" onclick="backToOverview()" data-key="back_btn">&#8592; Back to overview</button>
+  <div class="role-header-block">
+    <div class="role-eyebrow" data-key="r2_eyebrow">Developer · Tech Consultant</div>
+    <div class="role-title" data-key="r2_title">Code partner. No Stack Overflow required.</div>
+    <div class="role-subtitle" data-key="r2_sub">Review, refactor, explain, diagram, prototype. Claude handles the breadth so you can focus on the hard parts.</div>
+  </div>
+  <div class="uc-grid">
+    <div class="uc-item dev-accent"><div class="uc-name" data-key="r2_uc1_name">Code review</div><div class="uc-desc" data-key="r2_uc1_desc">Paste a function or file. Ask for edge cases, performance issues, or a specific refactor. With context, not just syntax.</div></div>
+    <div class="uc-item dev-accent"><div class="uc-name" data-key="r2_uc2_name">Architecture diagrams</div><div class="uc-desc" data-key="r2_uc2_desc">Describe a flow or system. Get a Mermaid or UML diagram. Paste into Confluence, Notion, or any MD editor.</div></div>
+    <div class="uc-item dev-accent"><div class="uc-name" data-key="r2_uc3_name">One-off tools</div><div class="uc-desc" data-key="r2_uc3_desc">Need a small utility? Claude generates a single-file HTML tool with no dependencies. Done in minutes.</div></div>
+    <div class="uc-item dev-accent"><div class="uc-name" data-key="r2_uc4_name">Clickable mockups</div><div class="uc-desc" data-key="r2_uc4_desc">Describe a UI screen. Get a working HTML/CSS prototype to validate with a client before a line of real code exists.</div></div>
+    <div class="uc-item dev-accent"><div class="uc-name" data-key="r2_uc5_name">Data → narrative</div><div class="uc-desc" data-key="r2_uc5_desc">Paste a CSV or table. Get the story: trends, outliers, the "so what" — or a structured summary ready for a report.</div></div>
+    <div class="uc-item dev-accent"><div class="uc-name" data-key="r2_uc6_name">Rubber duck at scale</div><div class="uc-desc" data-key="r2_uc6_desc">Explain the problem out loud to Claude. It asks back. Then helps you see what you missed. Better than a Slack comment.</div></div>
+  </div>
+  <div class="card accent-orange" style="margin-bottom:3mm;">
+    <div class="card-eyebrow" data-key="r2_monday_eyebrow">Try Monday</div>
+    <div class="card-title" data-key="r2_monday_title">3 prompts to start with</div>
+    <div class="prompt-label" data-key="r2_p1_label">Code review</div>
+    <div class="prompt-box"><code data-key="r2_p1">"Review this function. What edge cases am I missing? What would you refactor and why?"</code></div>
+    <div class="prompt-label" data-key="r2_p2_label">Diagram</div>
+    <div class="prompt-box"><code data-key="r2_p2">"Generate a Mermaid sequence diagram for this flow: [describe your flow in plain text]"</code></div>
+    <div class="prompt-label" data-key="r2_p3_label">Quick tool</div>
+    <div class="prompt-box" style="margin-bottom:0"><code data-key="r2_p3">"Build me a single-file HTML tool that [does X]. No frameworks. Should work offline."</code></div>
+  </div>
+  <div class="card" style="margin-bottom:0;">
+    <div class="card-eyebrow" data-key="r2_power_eyebrow">Power move</div>
+    <div class="card-title" data-key="r2_power_title">1 million token context</div>
+    <div class="card-text" data-key="r2_power_text">Paste your entire codebase, a full spec, or a 500-page manual into one conversation. Claude holds it all. Ask questions, trace dependencies, get consistent answers across the whole thing.</div>
+  </div>
+</div>
+
+<!-- ROLE: CHATGPT USER -->
+<div class="role-view" id="role-chatgpt">
+  <button class="back-btn" onclick="backToOverview()" data-key="back_btn">&#8592; Back to overview</button>
+  <div class="role-header-block">
+    <div class="role-eyebrow" data-key="r3_eyebrow">Already using AI · ChatGPT user</div>
+    <div class="role-title" data-key="r3_title">Why bother switching?</div>
+    <div class="role-subtitle" data-key="r3_sub">You don't have to. But knowing where each tool wins is what separates a power user from someone with one hammer.</div>
+  </div>
+  <div class="card" style="margin-bottom:3mm;">
+    <div class="card-eyebrow" data-key="r3_diff_eyebrow">Where Claude wins</div>
+    <div class="card-title" data-key="r3_diff_title">4 things Claude does better for this work</div>
+    <div class="uc-grid" style="margin-top:2mm;margin-bottom:0;">
+      <div class="uc-item chatgpt-accent"><div class="uc-name" data-key="r3_d1_name">Honest when uncertain</div><div class="uc-desc" data-key="r3_d1_desc">Claude says "I don't know" instead of confidently making things up. For client work, that matters more than fluent hallucination.</div></div>
+      <div class="uc-item chatgpt-accent"><div class="uc-name" data-key="r3_d2_name">1 million token context</div><div class="uc-desc" data-key="r3_d2_desc">Entire project folder, long legal doc, full meeting backlog — one conversation. No chunking, no losing context mid-thread.</div></div>
+      <div class="uc-item chatgpt-accent"><div class="uc-name" data-key="r3_d3_name">Projects with memory</div><div class="uc-desc" data-key="r3_d3_desc">Brief it once on the engagement. It remembers. Same persona, same context — every session. Stop re-explaining the background.</div></div>
+      <div class="uc-item chatgpt-accent"><div class="uc-name" data-key="r3_d4_name">Writing that doesn't sound like AI</div><div class="uc-desc" data-key="r3_d4_desc">Ask Claude to "sound less like AI wrote it" — and it actually doesn't. Calibrated, nuanced, your tone. Not generic output.</div></div>
+    </div>
+  </div>
+  <div class="card accent-green" style="margin-bottom:3mm;">
+    <div class="card-eyebrow" data-key="r3_comp_eyebrow">Honest take</div>
+    <div class="card-title" data-key="r3_comp_title">They're not competitors. Use both.</div>
+    <div class="diff-row">
+      <div class="diff-item pro"><div class="diff-label" data-key="r3_claude_label">Use Claude for</div><div class="diff-text" data-key="r3_claude_text">Document work, long-context reasoning, client comms, anything where being wrong is expensive.</div></div>
+      <div class="diff-item neutral"><div class="diff-label" data-key="r3_chatgpt_label">Use ChatGPT for</div><div class="diff-text" data-key="r3_chatgpt_text">Image generation, plugins you've already built, tasks where you've established a workflow that works.</div></div>
+    </div>
+  </div>
+  <div class="card accent-teal" style="margin-bottom:0;">
+    <div class="card-eyebrow" data-key="r3_setup_eyebrow">Set it up right</div>
+    <div class="card-title" data-key="r3_setup_title">Custom instructions change everything</div>
+    <div class="prompt-label" data-key="r3_setup_label">Paste in Settings &#8594; Custom instructions</div>
+    <div class="prompt-box" style="margin-bottom:2mm;"><code data-key="r3_setup_prompt">"You are my senior thought partner. I'm an IT consultant at adesso SE. Be direct, flag when I'm wrong, skip the preamble. Default language: English unless I write in German."</code></div>
+    <div class="card-text" data-key="r3_setup_note">Every conversation now starts calibrated to you. No re-briefing.</div>
+  </div>
+</div>
+
+
+<div class="footer">
+  <div class="footer-col">
+    <div class="footer-label" data-key="footer1_label">Access</div>
+    <div class="footer-text" data-key="footer1_text"><strong>claude.ai</strong> — request via matrix24, log in via adesso SSO. Add-ins in Word, Outlook, Excel, and PowerPoint.</div>
+  </div>
+  <div class="footer-col">
+    <div class="footer-label" data-key="footer2_label">Default model</div>
+    <div class="footer-text" data-key="footer2_text"><strong>Claude Sonnet</strong> — recommended for everyday work. Switch to Opus for complex, long-context tasks. Change it via the model selector in claude.ai.</div>
+  </div>
+  <div class="footer-col">
+    <div class="footer-label" data-key="footer3_label">Questions?</div>
+    <div class="footer-text" data-key="footer3_text">Reach the <strong>MS AI Peer Group</strong> on Teams — or ask your <strong>CC AI Ambassador</strong> directly.</div>
+  </div>
+</div>
+
+</div><!-- /page -->
+
+<script>
+var currentLang = 'en';
+
+var translations = {
+  en: {
+    printbar_hint: 'Open in Chrome for best results → then click Print',
+    header_eyebrow: 'adesso MS Business Line · June 2026',
+    header_title: 'Claude for adesso',
+    header_subtitle: 'Your AI at work — what it is, what it can do, and where to start.',
+    intro1_label: 'What it is',
+    intro1_text: 'Claude is Anthropic\'s AI — built for reasoning and problem-solving. Known for strong document handling and saying "I don\'t know" instead of making things up.',
+    intro2_label: 'How you access it',
+    intro2_text: 'Request your Enterprise account via the <strong>matrix24</strong> tool, then log in at <strong>claude.ai</strong> via adesso SSO. Add-ins available in Word, Outlook, Excel, and PowerPoint.',
+    intro3_label: 'Your data',
+    intro3_text: 'On the Enterprise plan: Anthropic does <strong>not</strong> train on your data. Conversations stay private and are not used to improve Claude models.',
+    cap_eyebrow: 'Capabilities',
+    cap_title: 'What Claude can do',
+    cap1_title: 'Read &amp; analyse docs',
+    cap1_text: 'Upload PDFs, transcripts, or paste text. Get summaries, extract decisions and action items.',
+    cap2_title: 'Write &amp; rewrite',
+    cap2_text: 'Emails, reports, proposals, status updates. Specify tone and audience — iterate until it\'s right.',
+    cap3_title: 'Compare &amp; review',
+    cap3_text: 'Two contract versions or proposals? Claude flags conflicts and new clauses in minutes.',
+    cap4_title: 'Code &amp; build',
+    cap4_text: 'Write, review, and explain code. Generate prototypes, UML diagrams, and one-off tools.',
+    cap5_title: 'Analyse data',
+    cap5_text: 'Paste a table or CSV. Get the narrative: trends, outliers, the "so what."',
+    cap6_title: 'Think with you',
+    cap6_text: 'Brainstorm angles, pressure-test arguments. Critical feedback — not just agreement.',
+    try_eyebrow: 'Start here',
+    try_title: 'Try these on Monday',
+    try1_label: 'Summarise a document',
+    try1_prompt: '"Give me a 5-bullet executive summary. Flag open questions and unresolved decisions."',
+    try1_use: 'Upload any PDF, report, or meeting transcript.',
+    try2_label: 'Rewrite an email',
+    try2_prompt: '"Rewrite this. Same content, shorter, more direct. Cut corporate filler."',
+    try2_use: 'Paste the draft. Specify the audience if needed.',
+    try3_label: 'Get critical feedback',
+    try3_prompt: '"What are the three weakest parts of this? Don\'t soften it."',
+    try3_use: 'Paste a proposal or plan. Pressure-test before you send.',
+    try4_label: 'Beat the blank page',
+    try4_prompt: '"Give me 10 different angles on [topic]. Genuinely different — not variations."',
+    try4_use: 'Naming, framing, workshop planning, any stuck moment.',
+    power_eyebrow: 'Go deeper',
+    power_title: 'Power moves',
+    power1_text: 'Persistent workspace per engagement — files, context, preferences. No re-briefing every session.',
+    power2_text: 'Set your role, tone, constraints once in Settings. Applied to every conversation.',
+    power3_text: '"Make this sharper." "The second paragraph isn\'t landing." "Sound less like AI wrote it."',
+    power4_text: 'Up to 1 million tokens — entire project docs and long specs in one conversation.',
+    know_eyebrow: 'Good to know',
+    know_title: "What Claude doesn't do",
+    know1_text: 'No live internet by default — knowledge has a cutoff. Don\'t use for real-time data without web search enabled.',
+    know2_text: 'No memory across conversations by default — unless you use Projects on claude.ai.',
+    know3_text: 'Will say "I don\'t know" rather than guess. Intentional — and useful.',
+    know4_text: 'MCP connection to M365 not yet available at adesso. Add-ins (Word, Outlook, Excel, PowerPoint) are live.',
+    footer1_label: 'Access',
+    footer1_text: '<strong>claude.ai</strong> — request via matrix24, log in via adesso SSO. Add-ins in Word, Outlook, Excel, and PowerPoint.',
+    footer2_label: 'Default model',
+    footer2_text: '<strong>Claude Sonnet</strong> — recommended for everyday work. Switch to Opus for complex, long-context tasks. Change it via the model selector in claude.ai.',
+    footer3_label: 'Questions?',
+    footer3_text: 'Reach the <strong>MS AI Peer Group</strong> on Teams — or ask your <strong>CC AI Ambassador</strong> directly.',
+    links_label: 'Community &amp; Resources',
+    link1_label: 'MS AI Peer Group',
+    link2_label: 'Claude Channel on adgrowth',
+    journey_title: 'Find your journey',
+    journey_sub: 'Same tool. Different entry points. Pick your role.',
+    journey_tag1: 'Role', journey_tag2: 'Role', journey_tag3: 'Already using',
+    journey_btn1: 'Consultant / PM', journey_btn2: 'Developer', journey_btn3: 'ChatGPT user',
+    back_btn: '← Back to overview',
+    r1_eyebrow: 'Consultant · PM · Project Lead',
+    r1_title: 'Client work, faster.',
+    r1_sub: 'From 12 unread documents to a briefed team. From meeting chaos to a clean status update. Claude handles the overhead so you can do the actual work.',
+    r1_uc1_name: 'Ask your documents', r1_uc1_desc: 'Upload a PDF or paste text. Ask anything. Get answers — not a table of contents. Works across 20+ docs in one go.',
+    r1_uc2_name: 'Meeting → actions', r1_uc2_desc: 'Paste a transcript or summary. Get decisions, open items, and action owners — clean and ready to share.',
+    r1_uc3_name: 'Draft emails & docs', r1_uc3_desc: 'Give bullet points. Get a client-ready draft. Tone, audience, length — all specifiable. Iterate in seconds.',
+    r1_uc4_name: 'Compare versions', r1_uc4_desc: 'Two contract drafts or spec versions? Claude flags what changed, what\'s new, what\'s potentially problematic.',
+    r1_uc5_name: 'Status reports', r1_uc5_desc: 'Weekly status, auto-structured: Done / In Progress / Blocked / Next. Paste your notes, get the update.',
+    r1_uc6_name: 'Pressure-test a proposal', r1_uc6_desc: '"What are the three weakest points? Don\'t soften it." — before the client sees it.',
+    r1_monday_eyebrow: 'Try Monday', r1_monday_title: '3 prompts to start with',
+    r1_p1_label: 'Before a client call', r1_p1: '"I have 30 minutes before the call. Here\'s the deck. What are the three things I need to address or clarify?"',
+    r1_p2_label: 'After a meeting', r1_p2: '"Turn these notes into a steering committee update. Format: Done / In Progress / Blocked / Decisions needed."',
+    r1_p3_label: 'Before sending', r1_p3: '"Compare these two requirement versions. What changed? What\'s new? Flag anything that could create conflict."',
+    r1_power_eyebrow: 'Power move', r1_power_title: 'Projects — brief once, use all engagement',
+    r1_power_text: 'Create a Project in claude.ai for each client engagement. Upload the key docs, set the context. Every conversation in that project has full context — no re-briefing, no explaining the background again.',
+    r2_eyebrow: 'Developer · Tech Consultant',
+    r2_title: 'Code partner. No Stack Overflow required.',
+    r2_sub: 'Review, refactor, explain, diagram, prototype. Claude handles the breadth so you can focus on the hard parts.',
+    r2_uc1_name: 'Code review', r2_uc1_desc: 'Paste a function or file. Ask for edge cases, performance issues, or a specific refactor. With context, not just syntax.',
+    r2_uc2_name: 'Architecture diagrams', r2_uc2_desc: 'Describe a flow or system. Get a Mermaid or UML diagram. Paste into Confluence, Notion, or any MD editor.',
+    r2_uc3_name: 'One-off tools', r2_uc3_desc: 'Need a small utility? Claude generates a single-file HTML tool with no dependencies. Done in minutes.',
+    r2_uc4_name: 'Clickable mockups', r2_uc4_desc: 'Describe a UI screen. Get a working HTML/CSS prototype to validate with a client before a line of real code exists.',
+    r2_uc5_name: 'Data → narrative', r2_uc5_desc: 'Paste a CSV or table. Get the story: trends, outliers, the "so what" — or a structured summary ready for a report.',
+    r2_uc6_name: 'Rubber duck at scale', r2_uc6_desc: 'Explain the problem out loud to Claude. It asks back. Then helps you see what you missed. Better than a Slack comment.',
+    r2_monday_eyebrow: 'Try Monday', r2_monday_title: '3 prompts to start with',
+    r2_p1_label: 'Code review', r2_p1: '"Review this function. What edge cases am I missing? What would you refactor and why?"',
+    r2_p2_label: 'Diagram', r2_p2: '"Generate a Mermaid sequence diagram for this flow: [describe your flow in plain text]"',
+    r2_p3_label: 'Quick tool', r2_p3: '"Build me a single-file HTML tool that [does X]. No frameworks. Should work offline."',
+    r2_power_eyebrow: 'Power move', r2_power_title: '1 million token context',
+    r2_power_text: 'Paste your entire codebase, a full spec, or a 500-page manual into one conversation. Claude holds it all. Ask questions, trace dependencies, get consistent answers across the whole thing.',
+    r3_eyebrow: 'Already using AI · ChatGPT user',
+    r3_title: 'Why bother switching?',
+    r3_sub: 'You don\'t have to. But knowing where each tool wins is what separates a power user from someone with one hammer.',
+    r3_diff_eyebrow: 'Where Claude wins', r3_diff_title: '4 things Claude does better for this work',
+    r3_d1_name: 'Honest when uncertain', r3_d1_desc: 'Claude says "I don\'t know" instead of confidently making things up. For client work, that matters more than fluent hallucination.',
+    r3_d2_name: '1 million token context', r3_d2_desc: 'Entire project folder, long legal doc, full meeting backlog — one conversation. No chunking, no losing context mid-thread.',
+    r3_d3_name: 'Projects with memory', r3_d3_desc: 'Brief it once on the engagement. It remembers. Same persona, same context — every session. Stop re-explaining the background.',
+    r3_d4_name: 'Writing that doesn\'t sound like AI', r3_d4_desc: 'Ask Claude to "sound less like AI wrote it" — and it actually doesn\'t. Calibrated, nuanced, your tone. Not generic output.',
+    r3_comp_eyebrow: 'Honest take', r3_comp_title: 'They\'re not competitors. Use both.',
+    r3_claude_label: 'Use Claude for', r3_claude_text: 'Document work, long-context reasoning, client comms, anything where being wrong is expensive.',
+    r3_chatgpt_label: 'Use ChatGPT for', r3_chatgpt_text: 'Image generation, plugins you\'ve already built, tasks where you\'ve established a workflow that works.',
+    r3_setup_eyebrow: 'Set it up right', r3_setup_title: 'Custom instructions change everything',
+    r3_setup_label: 'Paste in Settings → Custom instructions',
+    r3_setup_prompt: '"You are my senior thought partner. I\'m an IT consultant at adesso SE. Be direct, flag when I\'m wrong, skip the preamble. Default language: English unless I write in German."',
+    r3_setup_note: 'Every conversation now starts calibrated to you. No re-briefing.'
+
+  },
+  de: {
+    printbar_hint: 'In Chrome öffnen für beste Darstellung → dann Drucken klicken',
+    header_eyebrow: 'adesso MS Business Line · Juni 2026',
+    header_title: 'Claude für adesso',
+    header_subtitle: 'Dein KI-Assistent im Arbeitsalltag — was er ist, was er kann und wie du anfängst.',
+    intro1_label: 'Was es ist',
+    intro1_text: 'Claude ist Anthropics KI — gebaut für Analyse und Problemlösung. Bekannt für starke Dokumentenverarbeitung und dafür, "Ich weiß es nicht" zu sagen statt etwas zu erfinden.',
+    intro2_label: 'Wie du zugreifst',
+    intro2_text: 'Enterprise-Zugang per <strong>matrix24</strong>-Tool beantragen, dann bei <strong>claude.ai</strong> per adesso SSO anmelden. Add-ins für Word, Outlook, Excel und PowerPoint verfügbar.',
+    intro3_label: 'Deine Daten',
+    intro3_text: 'Im Enterprise-Plan: Anthropic trainiert <strong>nicht</strong> mit deinen Daten. Gespräche bleiben privat und fließen nicht in die Modellverbesserung ein.',
+    cap_eyebrow: 'Fähigkeiten',
+    cap_title: 'Was Claude kann',
+    cap1_title: 'Dokumente lesen &amp; analysieren',
+    cap1_text: 'PDFs oder Transkripte hochladen, Text einfügen. Zusammenfassungen erhalten, Entscheidungen und Aufgaben extrahieren.',
+    cap2_title: 'Schreiben &amp; umschreiben',
+    cap2_text: 'E-Mails, Berichte, Angebote, Status-Updates. Ton und Zielgruppe vorgeben — iterieren bis es stimmt.',
+    cap3_title: 'Vergleichen &amp; prüfen',
+    cap3_text: 'Zwei Vertragsversionen oder Angebote? Claude markiert Konflikte und neue Klauseln in Minuten.',
+    cap4_title: 'Coden &amp; bauen',
+    cap4_text: 'Code schreiben, reviewen und erklären. Prototypen, UML-Diagramme und Einzeltools generieren.',
+    cap5_title: 'Daten analysieren',
+    cap5_text: 'Tabelle oder CSV einfügen. Die Geschichte dahinter erhalten: Trends, Ausreißer, das "Was heißt das jetzt?"',
+    cap6_title: 'Mitdenken',
+    cap6_text: 'Ideen entwickeln, Argumente testen. Kritisches Feedback — keine reine Zustimmung.',
+    try_eyebrow: 'Hier anfangen',
+    try_title: 'Das kannst du Montag ausprobieren',
+    try1_label: 'Dokument zusammenfassen',
+    try1_prompt: '"Gib mir eine 5-Punkte-Zusammenfassung. Markiere offene Fragen und ungeklärte Entscheidungen."',
+    try1_use: 'Beliebiges PDF, Bericht oder Meeting-Protokoll hochladen.',
+    try2_label: 'E-Mail umschreiben',
+    try2_prompt: '"Schreib das um. Gleicher Inhalt, kürzer, direkter. Floskeln raus."',
+    try2_use: 'Entwurf einfügen. Zielgruppe angeben falls nötig.',
+    try3_label: 'Kritisches Feedback einholen',
+    try3_prompt: '"Was sind die drei schwächsten Stellen? Nicht weichspülen."',
+    try3_use: 'Angebot oder Plan einfügen. Testen bevor es rausgeht.',
+    try4_label: 'Das leere Blatt überwinden',
+    try4_prompt: '"Gib mir 10 verschiedene Perspektiven zu [Thema]. Wirklich verschieden — keine Variationen."',
+    try4_use: 'Naming, Framing, Workshop-Planung — wo immer du feststeckst.',
+    power_eyebrow: 'Tiefer einsteigen',
+    power_title: 'Power-Moves',
+    power1_text: 'Dauerhafter Workspace je Thema — Dateien, Kontext, Präferenzen. Kein erneutes Einbriefieren.',
+    power2_text: 'Rolle, Ton und Vorgaben einmalig in den Einstellungen setzen. Gilt für jedes Gespräch.',
+    power3_text: '"Mach das schärfer." "Der zweite Absatz zieht nicht." "Klingt zu sehr nach KI."',
+    power4_text: 'Bis zu 1 Million Tokens — ganze Projektdokumente und lange Spezifikationen in einem Gespräch.',
+    know_eyebrow: 'Gut zu wissen',
+    know_title: 'Was Claude nicht tut',
+    know1_text: 'Standardmäßig kein Live-Internet — Wissen hat einen Stichtag. Nicht für Echtzeitdaten ohne aktivierte Web-Suche nutzen.',
+    know2_text: 'Standardmäßig kein Gedächtnis zwischen Gesprächen — außer mit Projects auf claude.ai.',
+    know3_text: '"Ich weiß es nicht" statt raten. Absichtlich — und nützlich.',
+    know4_text: 'MCP-Verbindung zu M365 bei adesso noch nicht verfügbar. Add-ins (Word, Outlook, Excel, PowerPoint) sind aktiv.',
+    footer1_label: 'Zugang',
+    footer1_text: '<strong>claude.ai</strong> — Zugang per matrix24 beantragen, per adesso SSO anmelden. Add-ins für Word, Outlook, Excel und PowerPoint.',
+    footer2_label: 'Standardmodell',
+    footer2_text: '<strong>Claude Sonnet</strong> — empfohlen für den Alltag. Für komplexe oder lange Aufgaben zu Opus wechseln. Manuell über die Modellauswahl in claude.ai ändern.',
+    footer3_label: 'Fragen?',
+    footer3_text: 'Die <strong>MS AI Peer Group</strong> auf Teams erreichen — oder direkt den <strong>CC AI Ambassador</strong> fragen.',
+    links_label: 'Community &amp; Ressourcen',
+    link1_label: 'MS AI Peer Group',
+    link2_label: 'Claude-Kanal auf adgrowth',
+    journey_title: 'Finde deinen Einstieg',
+    journey_sub: 'Gleiche Tools. Unterschiedliche Einstiegspunkte. Wähl deine Rolle.',
+    journey_tag1: 'Rolle', journey_tag2: 'Rolle', journey_tag3: 'Nutzt bereits',
+    journey_btn1: 'Consultant / PM', journey_btn2: 'Developer', journey_btn3: 'ChatGPT-Nutzer',
+    back_btn: '← Zurück zur Übersicht',
+    r1_eyebrow: 'Consultant · PM · Projektleitung',
+    r1_title: 'Kundenarbeit. Schneller.',
+    r1_sub: 'Von 12 ungelesenen Dokumenten zum gebrieften Team. Von Meeting-Chaos zum sauberen Status-Update. Claude übernimmt den Overhead, damit du die eigentliche Arbeit tun kannst.',
+    r1_uc1_name: 'Dokumente befragen', r1_uc1_desc: 'PDF hochladen oder Text einfügen. Fragen stellen. Antworten bekommen — kein Inhaltsverzeichnis. Funktioniert mit 20+ Docs in einem Gespräch.',
+    r1_uc2_name: 'Meeting → Aufgaben', r1_uc2_desc: 'Transkript oder Zusammenfassung einfügen. Entscheidungen, offene Punkte und Verantwortliche erhalten — direkt teilbar.',
+    r1_uc3_name: 'E-Mails &amp; Dokumente', r1_uc3_desc: 'Stichpunkte geben. Kundenfähigen Entwurf erhalten. Ton, Zielgruppe, Länge — alles spezifizierbar. Iteration in Sekunden.',
+    r1_uc4_name: 'Versionen vergleichen', r1_uc4_desc: 'Zwei Vertragsversionen oder Anforderungsdocs? Claude markiert was sich geändert hat, was neu ist, was problematisch sein könnte.',
+    r1_uc5_name: 'Status-Reports', r1_uc5_desc: 'Wöchentlicher Status, automatisch strukturiert: Done / In Progress / Blocked / Next. Notizen einfügen, Update erhalten.',
+    r1_uc6_name: 'Angebot testen', r1_uc6_desc: '"Was sind die drei schwächsten Stellen? Nicht weichspülen." — bevor der Kunde es sieht.',
+    r1_monday_eyebrow: 'Montag ausprobieren', r1_monday_title: '3 Prompts zum Starten',
+    r1_p1_label: 'Vor dem Kundengespräch', r1_p1: '"Ich habe 30 Minuten vor dem Call. Hier ist die Präsentation. Was sind die drei Punkte, die ich ansprechen oder klären muss?"',
+    r1_p2_label: 'Nach dem Meeting', r1_p2: '"Wandle diese Notizen in ein Steering-Committee-Update um. Format: Done / In Progress / Blocked / Entscheidungen nötig."',
+    r1_p3_label: 'Vor dem Absenden', r1_p3: '"Vergleiche diese zwei Anforderungsversionen. Was hat sich geändert? Was ist neu? Markiere alles, was zu Konflikten führen könnte."',
+    r1_power_eyebrow: 'Power-Move', r1_power_title: 'Projects — einmal briefen, ganzes Projekt nutzen',
+    r1_power_text: 'Für jedes Kundenprojekt ein Project in claude.ai anlegen. Schlüsseldokumente hochladen, Kontext setzen. Jedes Gespräch in diesem Project hat vollständigen Kontext — kein erneutes Einbriefieren.',
+    r2_eyebrow: 'Developer · Tech-Consultant',
+    r2_title: 'Code-Partner. Kein Stack Overflow nötig.',
+    r2_sub: 'Review, Refactoring, Erklärungen, Diagramme, Prototypen. Claude nimmt die Breite, du fokussierst auf die schwierigen Teile.',
+    r2_uc1_name: 'Code-Review', r2_uc1_desc: 'Funktion oder Datei einfügen. Edge Cases, Performance-Probleme oder ein spezifisches Refactoring erfragen — mit Kontext, nicht nur Syntax.',
+    r2_uc2_name: 'Architektur-Diagramme', r2_uc2_desc: 'Flow oder System beschreiben. Mermaid- oder UML-Diagramm erhalten. In Confluence, Notion oder jeden MD-Editor einfügen.',
+    r2_uc3_name: 'Einzelne Tools', r2_uc3_desc: 'Kleines Utility-Tool gesucht? Claude erstellt eine Single-File HTML ohne Abhängigkeiten. In Minuten fertig.',
+    r2_uc4_name: 'Klickbare Mockups', r2_uc4_desc: 'Einen UI-Screen beschreiben. Funktionierenden HTML/CSS-Prototypen erhalten — vor der ersten echten Codezeile mit dem Kunden validieren.',
+    r2_uc5_name: 'Daten → Bericht', r2_uc5_desc: 'CSV oder Tabelle einfügen. Die Geschichte dahinter: Trends, Ausreißer, das "Was bedeutet das?" — fertig für einen Bericht.',
+    r2_uc6_name: 'Rubber Duck im Großformat', r2_uc6_desc: 'Das Problem laut erklären. Claude fragt zurück. Dann hilft es, zu sehen, was man übersehen hat. Besser als ein Kommentar im Slack.',
+    r2_monday_eyebrow: 'Montag ausprobieren', r2_monday_title: '3 Prompts zum Starten',
+    r2_p1_label: 'Code-Review', r2_p1: '"Überprüfe diese Funktion. Welche Edge Cases fehlen mir? Was würdest du refactoren und warum?"',
+    r2_p2_label: 'Diagramm', r2_p2: '"Erstelle ein Mermaid-Sequenzdiagramm für diesen Flow: [Ablauf in Klartext beschreiben]"',
+    r2_p3_label: 'Schnelles Tool', r2_p3: '"Erstelle mir ein Single-File HTML-Tool das [X macht]. Keine Frameworks. Soll offline funktionieren."',
+    r2_power_eyebrow: 'Power-Move', r2_power_title: '1 Million Token Kontext',
+    r2_power_text: 'Die gesamte Codebasis, ein vollständiges Spec-Dokument oder ein 500-seitiges Handbuch in einem Gespräch. Claude hält alles. Fragen stellen, Abhängigkeiten nachverfolgen, konsistente Antworten über das Ganze hinweg.',
+    r3_eyebrow: 'Nutzt bereits KI · ChatGPT-Nutzer',
+    r3_title: 'Warum überhaupt wechseln?',
+    r3_sub: 'Muss man nicht. Aber zu wissen, wo jedes Tool gewinnt — das ist der Unterschied zwischen einem Power-User und jemandem mit einem Hammer.',
+    r3_diff_eyebrow: 'Wo Claude gewinnt', r3_diff_title: '4 Dinge, die Claude für diese Arbeit besser macht',
+    r3_d1_name: 'Ehrlich bei Unsicherheit', r3_d1_desc: 'Claude sagt "Ich weiß es nicht" statt selbstbewusst zu erfinden. Für Kundenarbeit ist das wichtiger als flüssige Halluzination.',
+    r3_d2_name: '1 Million Token Kontext', r3_d2_desc: 'Gesamter Projektordner, langes Rechtsdokument, vollständiges Meeting-Backlog — ein Gespräch. Kein Aufteilen, kein Kontextverlust.',
+    r3_d3_name: 'Projects mit Gedächtnis', r3_d3_desc: 'Einmal briefen. Es erinnert sich. Gleiche Persona, gleicher Kontext — jede Session. Schluss mit dem ständigen Neueinbriefieren.',
+    r3_d4_name: 'Texte die nicht nach KI klingen', r3_d4_desc: 'Claude sagen "klingt nicht nach KI" — und es klingt tatsächlich nicht so. Kalibriert, nuanciert, dein Ton. Kein generischer Output.',
+    r3_comp_eyebrow: 'Ehrliche Einschätzung', r3_comp_title: 'Keine Konkurrenten. Beides nutzen.',
+    r3_claude_label: 'Claude nutzen für', r3_claude_text: 'Dokumentenarbeit, langen Kontext, Kundenkommunikation — alles wo Fehler teuer sind.',
+    r3_chatgpt_label: 'ChatGPT nutzen für', r3_chatgpt_text: 'Bildgenerierung, Plugins die bereits aufgebaut sind, Aufgaben wo ein Workflow schon funktioniert.',
+    r3_setup_eyebrow: 'Richtig einrichten', r3_setup_title: 'Custom Instructions ändern alles',
+    r3_setup_label: 'In Einstellungen → Custom Instructions einfügen',
+    r3_setup_prompt: '"Du bist mein Senior-Sparringspartner. Ich bin IT-Consultant bei adesso SE. Sei direkt, sag mir wenn ich falsch liege, überspringe die Einleitung. Standardsprache: Deutsch, außer ich schreibe auf Englisch."',
+    r3_setup_note: 'Jedes Gespräch startet jetzt kalibriert. Kein Neueinbriefieren.'
+
+  }
+};
+
+
+function showRole(role) {
+  document.querySelector('.body').style.display = 'none';
+  document.querySelector('.journey-section').style.display = 'none';
+  document.querySelector('.links-section').style.display = 'none';
+  document.querySelectorAll('.role-view').forEach(function(el) { el.classList.remove('active'); });
+  document.getElementById('role-' + role).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function backToOverview() {
+  document.querySelector('.body').style.display = '';
+  document.querySelector('.journey-section').style.display = '';
+  document.querySelector('.links-section').style.display = '';
+  document.querySelectorAll('.role-view').forEach(function(el) { el.classList.remove('active'); });
+  window.scrollTo(0, 0);
+}
+
+function applyLang(lang) {
+  var t = translations[lang];
+  document.querySelectorAll('[data-key]').forEach(function(el) {
+    var key = el.getAttribute('data-key');
+    if (t[key] !== undefined) {
+      el.innerHTML = t[key];
+    }
+  });
+  document.getElementById('langBtn').textContent = lang === 'en' ? 'DE' : 'EN';
+  document.documentElement.lang = lang;
+}
+
+function toggleLang() {
+  currentLang = currentLang === 'en' ? 'de' : 'en';
+  applyLang(currentLang);
+}
+</script>
+</body>
+</html>
