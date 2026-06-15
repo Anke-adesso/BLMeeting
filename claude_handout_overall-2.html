@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Claude for adesso MS</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Fira+Sans+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -400,6 +401,45 @@
   .diff-item.neutral .diff-label { color: #887D75; }
   .diff-text { font-size: 7pt; color: #5A524C; line-height: 1.4; }
   .card-text { font-size: 7.5pt; color: #5A524C; line-height: 1.4; margin-top: 1.5mm; }
+
+  /* ─── RESPONSIVE / SCREEN OVERRIDES ─── */
+  @media screen {
+    .page {
+      width: 100%;
+      max-width: 794px; /* ≈ 210mm at 96 dpi */
+      min-height: unset;
+    }
+    /* Convert absolute mm paddings/margins to proportional % so they scale */
+    .header        { padding: 3% 4.5% 2.5%; }
+    .body          { padding: 2% 4.5% 1.5%; }
+    .intro-strip   { padding: 2%; gap: 1.5%; margin-bottom: 1.5%; }
+    .intro-box     { padding: 1.5%; }
+    .row           { gap: 1.5%; margin-bottom: 1.5%; }
+    .card          { padding: 1.5% 2%; }
+    .footer        { padding: 1.5% 4.5%; gap: 3%; }
+    .links-section    { margin: 0 4.5% 1.5%; }
+    .journey-section  { margin: 0 4.5% 1.5%; }
+    .role-view     { padding: 2% 4.5% 1.5%; }
+  }
+
+  /* Tablet: 2-column cap grid, wrap 4-column try grid */
+  @media screen and (max-width: 680px) {
+    .cap-item      { width: calc(50% - 1mm); }
+    .try-grid      { flex-wrap: wrap; }
+    .try-item      { flex: none; width: calc(50% - 1mm); }
+  }
+
+  /* Mobile: stack everything to single column */
+  @media screen and (max-width: 480px) {
+    .intro-strip   { flex-direction: column; }
+    .row           { flex-direction: column; }
+    .footer        { flex-direction: column; }
+    .diff-row      { flex-direction: column; }
+    .journey-btns  { flex-direction: column; }
+    .cap-item      { width: 100%; }
+    .try-item      { width: 100%; }
+    .uc-item       { width: 100%; }
+  }
 </style>
 </head>
 <body>
@@ -960,47 +1000,6 @@ document.addEventListener('click', function(e) {
   });
 });
 
-/* --- Adaptive scaling: shrink the fixed A4 page to fit the window (screen only) --- */
-(function() {
-  var page = document.querySelector('.page');
-  if (!page) return;
-
-  // Wrap the page so the scaled element keeps a correct layout footprint
-  // (CSS transforms don't reflow, which would otherwise leave dead space / scrollbars).
-  var wrap = document.createElement('div');
-  wrap.className = 'page-scale-wrap';
-  wrap.style.margin = '0 auto';
-  page.parentNode.insertBefore(wrap, page);
-  wrap.appendChild(page);
-  page.style.transformOrigin = 'top left';
-
-  function reset() {
-    page.style.transform = '';
-    wrap.style.width = '';
-    wrap.style.height = '';
-  }
-
-  function fitPage() {
-    reset();
-    var margin = 16; // breathing room on each side
-    var available = window.innerWidth - margin * 2;
-    var natW = page.offsetWidth;
-    var natH = page.offsetHeight;
-    var scale = Math.min(1, available / natW);
-    if (scale >= 1) return; // no scaling needed on wide screens
-    page.style.transform = 'scale(' + scale + ')';
-    wrap.style.width = (natW * scale) + 'px';
-    wrap.style.height = (natH * scale) + 'px';
-  }
-
-  window.addEventListener('resize', fitPage);
-  // Re-measure once fonts have loaded (affects page height).
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitPage);
-  // Never scale for printing — restore full size before, re-fit after.
-  window.addEventListener('beforeprint', reset);
-  window.addEventListener('afterprint', fitPage);
-  fitPage();
-})();
 </script>
 </body>
 </html>
