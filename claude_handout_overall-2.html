@@ -456,7 +456,7 @@
         <li><span class="tag">Projects</span> <span data-key="power1_text">Persistent workspace per engagement — files, context, preferences. No re-briefing every session.</span></li>
         <li><span class="tag">Instructions</span> <span data-key="power2_text">Set your role, tone, constraints once in Settings. Applied to every conversation.</span></li>
         <li><span class="tag">Iterate</span> <span data-key="power3_text">"Make this sharper." "The second paragraph isn't landing." "Sound less like AI wrote it."</span></li>
-        <li><span class="tag">Context</span> <span data-key="power4_text">Up to 1 million tokens on the long-context models — entire project docs and long specs in one conversation.</span></li>
+        <li><span class="tag">Context</span> <span data-key="power4_text">Up to 1 million tokens on Sonnet and Opus — entire project docs and long specs in one conversation.</span></li>
       </ul>
     </div>
     <div class="card accent-green">
@@ -570,7 +570,7 @@
   <div class="card" style="margin-bottom:0;">
     <div class="card-eyebrow" data-key="r2_power_eyebrow">Power move</div>
     <div class="card-title" data-key="r2_power_title">1 million token context</div>
-    <div class="card-text" data-key="r2_power_text">Paste a large codebase, a full spec, or a long manual into one conversation and work across all of it — ask questions, trace dependencies, keep context that would otherwise span dozens of chats. The largest context windows depend on the model, so check which one you're on for very big inputs.</div>
+    <div class="card-text" data-key="r2_power_text">Paste a large codebase, a full spec, or a long manual into one conversation and work across all of it — ask questions, trace dependencies, keep context that would otherwise span dozens of chats. The full 1M-token window is on Sonnet and Opus, the models you'll use most; Haiku's is smaller, so reach for Sonnet or Opus on very large inputs.</div>
   </div>
 </div>
 
@@ -676,7 +676,7 @@ var translations = {
     power1_text: 'Persistent workspace per engagement — files, context, preferences. No re-briefing every session.',
     power2_text: 'Set your role, tone, constraints once in Settings. Applied to every conversation.',
     power3_text: '"Make this sharper." "The second paragraph isn\'t landing." "Sound less like AI wrote it."',
-    power4_text: 'Up to 1 million tokens on the long-context models — entire project docs and long specs in one conversation.',
+    power4_text: 'Up to 1 million tokens on Sonnet and Opus — entire project docs and long specs in one conversation.',
     know_eyebrow: 'Good to know',
     know_title: "What Claude doesn't do",
     know1_text: 'No live internet by default — knowledge has a cutoff. Don\'t use for real-time data without web search enabled.',
@@ -726,7 +726,7 @@ var translations = {
     r2_p2_label: 'Diagram', r2_p2: '"Generate a Mermaid sequence diagram for this flow: [describe your flow in plain text]"',
     r2_p3_label: 'Quick tool', r2_p3: '"Build me a single-file HTML tool that [does X]. No frameworks. Should work offline."',
     r2_power_eyebrow: 'Power move', r2_power_title: '1 million token context',
-    r2_power_text: 'Paste a large codebase, a full spec, or a long manual into one conversation and work across all of it — ask questions, trace dependencies, keep context that would otherwise span dozens of chats. The largest context windows depend on the model, so check which one you\'re on for very big inputs.',
+    r2_power_text: 'Paste a large codebase, a full spec, or a long manual into one conversation and work across all of it — ask questions, trace dependencies, keep context that would otherwise span dozens of chats. The full 1M-token window is on Sonnet and Opus, the models you\'ll use most; Haiku\'s is smaller, so reach for Sonnet or Opus on very large inputs.',
     r3_eyebrow: 'Already using AI tools',
     r3_title: 'One tool is not a strategy.',
     r3_sub: 'You\'re already using AI — that\'s the right instinct. The next step is knowing which tool does what well, and stopping to use one where another wins.',
@@ -789,7 +789,7 @@ var translations = {
     power1_text: 'Dauerhafter Workspace je Thema — Dateien, Kontext, Präferenzen. Kein erneutes Einbriefieren.',
     power2_text: 'Rolle, Ton und Vorgaben einmalig in den Einstellungen setzen. Gilt für jedes Gespräch.',
     power3_text: '"Mach das schärfer." "Der zweite Absatz zieht nicht." "Klingt zu sehr nach KI."',
-    power4_text: 'Bis zu 1 Million Tokens auf den Long-Context-Modellen — ganze Projektdokumente und lange Spezifikationen in einem Gespräch.',
+    power4_text: 'Bis zu 1 Million Tokens auf Sonnet und Opus — ganze Projektdokumente und lange Spezifikationen in einem Gespräch.',
     know_eyebrow: 'Gut zu wissen',
     know_title: 'Was Claude nicht tut',
     know1_text: 'Standardmäßig kein Live-Internet — Wissen hat einen Stichtag. Nicht für Echtzeitdaten ohne aktivierte Web-Suche nutzen.',
@@ -839,7 +839,7 @@ var translations = {
     r2_p2_label: 'Diagramm', r2_p2: '"Erstelle ein Mermaid-Sequenzdiagramm für diesen Flow: [Ablauf in Klartext beschreiben]"',
     r2_p3_label: 'Schnelles Tool', r2_p3: '"Erstelle mir ein Single-File HTML-Tool das [X macht]. Keine Frameworks. Soll offline funktionieren."',
     r2_power_eyebrow: 'Power-Move', r2_power_title: '1 Million Token Kontext',
-    r2_power_text: 'Eine große Codebasis, ein vollständiges Spec-Dokument oder ein langes Handbuch in einem Gespräch — und über das Ganze hinweg arbeiten: Fragen stellen, Abhängigkeiten nachverfolgen, Kontext halten, der sonst dutzende Chats umfassen würde. Die größten Kontextfenster hängen vom Modell ab — bei sehr großen Eingaben prüfen, welches du nutzt.',
+    r2_power_text: 'Eine große Codebasis, ein vollständiges Spec-Dokument oder ein langes Handbuch in einem Gespräch — und über das Ganze hinweg arbeiten: Fragen stellen, Abhängigkeiten nachverfolgen, Kontext halten, der sonst dutzende Chats umfassen würde. Das volle 1-Million-Token-Fenster gibt es auf Sonnet und Opus, den Modellen, die du am meisten nutzt; Haikus ist kleiner — bei sehr großen Eingaben also Sonnet oder Opus nehmen.',
     r3_eyebrow: 'Nutzt bereits KI-Tools',
     r3_title: 'Ein Tool ist keine Strategie.',
     r3_sub: 'Du nutzt bereits KI — das ist der richtige Instinkt. Der nächste Schritt: wissen, welches Tool was gut kann, und aufhören, eines zu nutzen, wo ein anderes gewinnt.',
