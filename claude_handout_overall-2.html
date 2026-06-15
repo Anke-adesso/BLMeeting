@@ -285,6 +285,33 @@
   .link-chip:hover { background: #EEF5FC; border-color: #006EC7; box-shadow: 0 2px 6px rgba(0,110,199,0.15); }
   .link-chip .chip-icon { font-size: 9pt; line-height: 1; }
 
+  /* ─── TOKEN TRANSLATOR ─── */
+  .tok-help {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 3.4mm; height: 3.4mm; margin-left: 1mm; padding: 0;
+    border: 1px solid #006EC7; background: #fff; color: #006EC7;
+    border-radius: 50%; font-family: "Fira Sans", Lato, Arial, sans-serif;
+    font-size: 6pt; font-weight: 700; line-height: 1; cursor: pointer;
+    vertical-align: middle; transition: background 0.12s, color 0.12s;
+  }
+  .tok-help:hover { background: #006EC7; color: #fff; }
+  .tok-pop {
+    display: none; position: absolute; left: 7mm; top: 100%; margin-top: 1mm;
+    z-index: 200; width: 80mm;
+    background: #fff; border: 1px solid #C8D4DF; border-left: 3px solid #006EC7;
+    border-radius: 2px; box-shadow: 0 4px 14px rgba(0,0,0,0.16);
+    padding: 3mm 3.5mm; text-align: left;
+  }
+  .tok-pop.open { display: block; }
+  .tok-pop-title {
+    font-family: "Fira Sans Condensed", "Fira Sans", Lato, Arial Narrow, sans-serif;
+    font-size: 8pt; font-weight: 700; color: #006EC7; margin-bottom: 1.5mm;
+  }
+  .tok-pop-row { font-size: 7pt; color: #5A524C; line-height: 1.4; margin-bottom: 1.5mm; }
+  .tok-pop-row strong { color: #000; }
+  .tok-pop-note { font-size: 6.5pt; color: #887D75; font-style: italic; line-height: 1.35; }
+  @media print { .tok-help, .tok-pop { display: none !important; } }
+
   /* ─── JOURNEY SECTION ─── */
   .journey-section {
     margin: 0 10mm 3mm;
@@ -456,7 +483,13 @@
         <li><span class="tag">Projects</span> <span data-key="power1_text">Persistent workspace per engagement — files, context, preferences. No re-briefing every session.</span></li>
         <li><span class="tag">Instructions</span> <span data-key="power2_text">Set your role, tone, constraints once in Settings. Applied to every conversation.</span></li>
         <li><span class="tag">Iterate</span> <span data-key="power3_text">"Make this sharper." "The second paragraph isn't landing." "Sound less like AI wrote it."</span></li>
-        <li><span class="tag">Context</span> <span data-key="power4_text">Up to 1 million tokens on Sonnet and Opus — entire project docs and long specs in one conversation.</span></li>
+        <li><span class="tag">Context</span> <span data-key="power4_text">Up to 1 million tokens on Sonnet and Opus — entire project docs and long specs in one conversation.</span><button class="tok-help" onclick="toggleTokenHelp(event)" aria-label="What do these numbers mean?" title="What do these numbers mean?">?</button>
+          <div class="tok-pop" id="tokPop">
+            <div class="tok-pop-title" data-key="tok_title">Tokens — in plain words</div>
+            <div class="tok-pop-row" data-key="tok_row1"><strong>1M context (input)</strong> — what Claude can take in at once: ~750,000 words, roughly 1,500 pages or a small shelf of books. Your whole project in one conversation.</div>
+            <div class="tok-pop-row" data-key="tok_row2"><strong>128K max output</strong> — what it can write in a single reply: ~96,000 words, about a 300-page book.</div>
+            <div class="tok-pop-note" data-key="tok_note">A token ≈ ¾ of a word. You rarely need to count — just know the input is huge and one answer can still be very long.</div>
+          </div></li>
       </ul>
     </div>
     <div class="card accent-green">
@@ -742,7 +775,11 @@ var translations = {
     r3_setup_label: 'Paste in Settings → Custom instructions',
     r3_setup_prompt: '"You are my senior thought partner. I\'m an IT consultant at adesso SE. Be direct, flag when I\'m wrong, skip the preamble. Default language: English unless I write in German."',
     r3_setup_note: 'Every conversation starts calibrated. No re-briefing, no generic output.',
-    r3_comp_note: 'No model leads all categories — and that changes monthly. Platform competence beats platform loyalty.'
+    r3_comp_note: 'No model leads all categories — and that changes monthly. Platform competence beats platform loyalty.',
+    tok_title: 'Tokens — in plain words',
+    tok_row1: '<strong>1M context (input)</strong> — what Claude can take in at once: ~750,000 words, roughly 1,500 pages or a small shelf of books. Your whole project in one conversation.',
+    tok_row2: '<strong>128K max output</strong> — what it can write in a single reply: ~96,000 words, about a 300-page book.',
+    tok_note: 'A token ≈ ¾ of a word. You rarely need to count — just know the input is huge and one answer can still be very long.'
 
   },
   de: {
@@ -855,7 +892,11 @@ var translations = {
     r3_setup_label: 'In Einstellungen → Custom Instructions einfügen',
     r3_setup_prompt: '"Du bist mein Senior-Sparringspartner. Ich bin IT-Consultant bei adesso SE. Sei direkt, sag mir wenn ich falsch liege, überspringe die Einleitung. Standardsprache: Deutsch, außer ich schreibe auf Englisch."',
     r3_setup_note: 'Jedes Gespräch startet kalibriert. Kein Neueinbriefieren, kein generischer Output.',
-    r3_comp_note: 'Kein Modell führt in allen Kategorien — und das ändert sich monatlich. Plattformkompetenz schlägt Plattformtreue.'
+    r3_comp_note: 'Kein Modell führt in allen Kategorien — und das ändert sich monatlich. Plattformkompetenz schlägt Plattformtreue.',
+    tok_title: 'Tokens — einfach erklärt',
+    tok_row1: '<strong>1 Mio. Kontext (Eingabe)</strong> — was Claude auf einmal aufnehmen kann: ~750.000 Wörter, etwa 1.500 Seiten oder ein kleines Bücherregal. Dein ganzes Projekt in einem Gespräch.',
+    tok_row2: '<strong>128K max. Ausgabe</strong> — was es in einer einzigen Antwort schreiben kann: ~96.000 Wörter, etwa ein 300-Seiten-Buch.',
+    tok_note: 'Ein Token ≈ ¾ eines Wortes. Zählen musst du selten — wichtig ist nur: die Eingabe ist riesig, und eine Antwort kann trotzdem sehr lang sein.'
 
   }
 };
@@ -894,6 +935,21 @@ function toggleLang() {
   currentLang = currentLang === 'en' ? 'de' : 'en';
   applyLang(currentLang);
 }
+
+function toggleTokenHelp(e) {
+  if (e) e.stopPropagation();
+  var pop = document.getElementById('tokPop');
+  if (pop) pop.classList.toggle('open');
+}
+
+document.addEventListener('click', function(e) {
+  var pop = document.getElementById('tokPop');
+  if (pop && pop.classList.contains('open') &&
+      !pop.contains(e.target) &&
+      !(e.target.classList && e.target.classList.contains('tok-help'))) {
+    pop.classList.remove('open');
+  }
+});
 </script>
 </body>
 </html>
