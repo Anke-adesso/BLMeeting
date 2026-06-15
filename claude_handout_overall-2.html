@@ -286,6 +286,7 @@
   .link-chip .chip-icon { font-size: 9pt; line-height: 1; }
 
   /* ─── TOKEN TRANSLATOR ─── */
+  .tok-anchor { position: relative; display: inline-block; vertical-align: middle; }
   .tok-help {
     display: inline-flex; align-items: center; justify-content: center;
     width: 3.4mm; height: 3.4mm; margin-left: 1mm; padding: 0;
@@ -296,21 +297,28 @@
   }
   .tok-help:hover { background: #006EC7; color: #fff; }
   .tok-pop {
-    display: none; position: absolute; left: 7mm; top: 100%; margin-top: 1mm;
+    display: none; position: absolute; top: 100%; margin-top: 1mm;
     z-index: 200; width: 80mm;
     background: #fff; border: 1px solid #C8D4DF; border-left: 3px solid #006EC7;
     border-radius: 2px; box-shadow: 0 4px 14px rgba(0,0,0,0.16);
     padding: 3mm 3.5mm; text-align: left;
   }
+  .tok-pop--left  { left: 0; }
+  .tok-pop--right { right: 0; }
   .tok-pop.open { display: block; }
   .tok-pop-title {
+    display: block;
     font-family: "Fira Sans Condensed", "Fira Sans", Lato, Arial Narrow, sans-serif;
     font-size: 8pt; font-weight: 700; color: #006EC7; margin-bottom: 1.5mm;
   }
-  .tok-pop-row { font-size: 7pt; color: #5A524C; line-height: 1.4; margin-bottom: 1.5mm; }
+  .tok-pop-row { display: block; font-size: 7pt; color: #5A524C; line-height: 1.4; margin-bottom: 1.5mm; }
   .tok-pop-row strong { color: #000; }
-  .tok-pop-note { font-size: 6.5pt; color: #887D75; font-style: italic; line-height: 1.35; }
-  @media print { .tok-help, .tok-pop { display: none !important; } }
+  .tok-pop-note { display: block; font-size: 6.5pt; color: #887D75; font-style: italic; line-height: 1.35; }
+  .tok-print { display: none; }
+  @media print {
+    .tok-help, .tok-pop { display: none !important; }
+    .tok-print { display: block !important; font-size: 6pt; color: #887D75; font-style: italic; line-height: 1.3; margin-top: 1.5mm; }
+  }
 
   /* ─── JOURNEY SECTION ─── */
   .journey-section {
@@ -483,13 +491,7 @@
         <li><span class="tag">Projects</span> <span data-key="power1_text">Persistent workspace per engagement — files, context, preferences. No re-briefing every session.</span></li>
         <li><span class="tag">Instructions</span> <span data-key="power2_text">Set your role, tone, constraints once in Settings. Applied to every conversation.</span></li>
         <li><span class="tag">Iterate</span> <span data-key="power3_text">"Make this sharper." "The second paragraph isn't landing." "Sound less like AI wrote it."</span></li>
-        <li><span class="tag">Context</span> <span data-key="power4_text">Up to 1 million tokens on Sonnet and Opus — entire project docs and long specs in one conversation.</span><button class="tok-help" onclick="toggleTokenHelp(event)" aria-label="What do these numbers mean?" title="What do these numbers mean?">?</button>
-          <div class="tok-pop" id="tokPop">
-            <div class="tok-pop-title" data-key="tok_title">Tokens — in plain words</div>
-            <div class="tok-pop-row" data-key="tok_row1"><strong>1M context (input)</strong> — what Claude can take in at once: ~750,000 words, roughly 1,500 pages or a small shelf of books. Your whole project in one conversation.</div>
-            <div class="tok-pop-row" data-key="tok_row2"><strong>128K max output</strong> — what it can write in a single reply: ~96,000 words, about a 300-page book.</div>
-            <div class="tok-pop-note" data-key="tok_note">A token ≈ ¾ of a word. You rarely need to count — just know the input is huge and one answer can still be very long.</div>
-          </div></li>
+        <li><span class="tag">Context</span> <span data-key="power4_text">Up to 1 million tokens on Sonnet and Opus — entire project docs and long specs in one conversation.</span><span class="tok-anchor"><button class="tok-help" onclick="toggleTokenHelp(event, this)" aria-label="What do these numbers mean?" title="What do these numbers mean?">?</button><span class="tok-pop tok-pop--right"><span class="tok-pop-title" data-key="tok_title">Tokens &amp; context — in plain words</span><span class="tok-pop-row" data-key="tok_row1"><strong>Context window</strong> is Claude's working memory for the <em>whole</em> conversation — every message so far, plus any documents you've added. Not just your last message.</span><span class="tok-pop-row" data-key="tok_row2"><strong>1M tokens</strong> of it ≈ 750,000 words — roughly 1,500 pages, or a small shelf of books. Big enough to hold an entire project at once.</span><span class="tok-pop-row" data-key="tok_row3"><strong>128K max output</strong> is the slice Claude can write in one reply ≈ 96,000 words, about a 300-page book.</span><span class="tok-pop-note" data-key="tok_note">A token ≈ ¾ of a word. In a very long chat the earliest parts can slip out of view — start fresh if Claude seems to forget the beginning.</span></span></span></li>
       </ul>
     </div>
     <div class="card accent-green">
@@ -604,6 +606,7 @@
     <div class="card-eyebrow" data-key="r2_power_eyebrow">Power move</div>
     <div class="card-title" data-key="r2_power_title">1 million token context</div>
     <div class="card-text" data-key="r2_power_text">Paste a large codebase, a full spec, or a long manual into one conversation and work across all of it — ask questions, trace dependencies, keep context that would otherwise span dozens of chats. The full 1M-token window is on Sonnet and Opus, the models you'll use most; Haiku's is smaller, so reach for Sonnet or Opus on very large inputs.</div>
+    <span class="tok-anchor" style="margin-top:1.5mm;"><button class="tok-help" onclick="toggleTokenHelp(event, this)" aria-label="What do these numbers mean?" title="What do these numbers mean?">?</button><span class="tok-pop tok-pop--left"><span class="tok-pop-title" data-key="tok_title">Tokens &amp; context — in plain words</span><span class="tok-pop-row" data-key="tok_row1"><strong>Context window</strong> is Claude's working memory for the <em>whole</em> conversation — every message so far, plus any documents you've added. Not just your last message.</span><span class="tok-pop-row" data-key="tok_row2"><strong>1M tokens</strong> of it ≈ 750,000 words — roughly 1,500 pages, or a small shelf of books. Big enough to hold an entire project at once.</span><span class="tok-pop-row" data-key="tok_row3"><strong>128K max output</strong> is the slice Claude can write in one reply ≈ 96,000 words, about a 300-page book.</span><span class="tok-pop-note" data-key="tok_note">A token ≈ ¾ of a word. In a very long chat the earliest parts can slip out of view — start fresh if Claude seems to forget the beginning.</span></span></span>
   </div>
 </div>
 
@@ -652,6 +655,7 @@
   <div class="footer-col">
     <div class="footer-label" data-key="footer2_label">Default model</div>
     <div class="footer-text" data-key="footer2_text"><strong>Claude Sonnet</strong> — recommended for everyday work. Switch to Opus for complex, long-context tasks. Change it via the model selector in claude.ai.</div>
+    <div class="tok-print" data-key="tok_print">On tokens: <strong>context window</strong> = the whole conversation Claude holds at once (1M ≈ ~1,500 pages); <strong>max output</strong> = one reply (128K ≈ ~300 pages). A token ≈ ¾ of a word.</div>
   </div>
   <div class="footer-col">
     <div class="footer-label" data-key="footer3_label">Questions?</div>
@@ -776,10 +780,12 @@ var translations = {
     r3_setup_prompt: '"You are my senior thought partner. I\'m an IT consultant at adesso SE. Be direct, flag when I\'m wrong, skip the preamble. Default language: English unless I write in German."',
     r3_setup_note: 'Every conversation starts calibrated. No re-briefing, no generic output.',
     r3_comp_note: 'No model leads all categories — and that changes monthly. Platform competence beats platform loyalty.',
-    tok_title: 'Tokens — in plain words',
-    tok_row1: '<strong>1M context (input)</strong> — what Claude can take in at once: ~750,000 words, roughly 1,500 pages or a small shelf of books. Your whole project in one conversation.',
-    tok_row2: '<strong>128K max output</strong> — what it can write in a single reply: ~96,000 words, about a 300-page book.',
-    tok_note: 'A token ≈ ¾ of a word. You rarely need to count — just know the input is huge and one answer can still be very long.'
+    tok_title: 'Tokens &amp; context — in plain words',
+    tok_row1: '<strong>Context window</strong> is Claude\'s working memory for the <em>whole</em> conversation — every message so far, plus any documents you\'ve added. Not just your last message.',
+    tok_row2: '<strong>1M tokens</strong> of it ≈ 750,000 words — roughly 1,500 pages, or a small shelf of books. Big enough to hold an entire project at once.',
+    tok_row3: '<strong>128K max output</strong> is the slice Claude can write in one reply ≈ 96,000 words, about a 300-page book.',
+    tok_note: 'A token ≈ ¾ of a word. In a very long chat the earliest parts can slip out of view — start fresh if Claude seems to forget the beginning.',
+    tok_print: 'On tokens: <strong>context window</strong> = the whole conversation Claude holds at once (1M ≈ ~1,500 pages); <strong>max output</strong> = one reply (128K ≈ ~300 pages). A token ≈ ¾ of a word.'
 
   },
   de: {
@@ -893,10 +899,12 @@ var translations = {
     r3_setup_prompt: '"Du bist mein Senior-Sparringspartner. Ich bin IT-Consultant bei adesso SE. Sei direkt, sag mir wenn ich falsch liege, überspringe die Einleitung. Standardsprache: Deutsch, außer ich schreibe auf Englisch."',
     r3_setup_note: 'Jedes Gespräch startet kalibriert. Kein Neueinbriefieren, kein generischer Output.',
     r3_comp_note: 'Kein Modell führt in allen Kategorien — und das ändert sich monatlich. Plattformkompetenz schlägt Plattformtreue.',
-    tok_title: 'Tokens — einfach erklärt',
-    tok_row1: '<strong>1 Mio. Kontext (Eingabe)</strong> — was Claude auf einmal aufnehmen kann: ~750.000 Wörter, etwa 1.500 Seiten oder ein kleines Bücherregal. Dein ganzes Projekt in einem Gespräch.',
-    tok_row2: '<strong>128K max. Ausgabe</strong> — was es in einer einzigen Antwort schreiben kann: ~96.000 Wörter, etwa ein 300-Seiten-Buch.',
-    tok_note: 'Ein Token ≈ ¾ eines Wortes. Zählen musst du selten — wichtig ist nur: die Eingabe ist riesig, und eine Antwort kann trotzdem sehr lang sein.'
+    tok_title: 'Tokens &amp; Kontext — einfach erklärt',
+    tok_row1: '<strong>Kontextfenster</strong> ist Claudes Arbeitsgedächtnis für das <em>gesamte</em> Gespräch — jede bisherige Nachricht plus alle Dokumente, die du hinzugefügt hast. Nicht nur deine letzte Nachricht.',
+    tok_row2: '<strong>1 Mio. Tokens</strong> davon ≈ 750.000 Wörter — etwa 1.500 Seiten oder ein kleines Bücherregal. Genug für ein ganzes Projekt auf einmal.',
+    tok_row3: '<strong>128K max. Ausgabe</strong> ist der Teil, den Claude in einer Antwort schreiben kann ≈ 96.000 Wörter, etwa ein 300-Seiten-Buch.',
+    tok_note: 'Ein Token ≈ ¾ eines Wortes. In sehr langen Chats können die ältesten Teile aus dem Blick geraten — fang neu an, wenn Claude den Anfang zu vergessen scheint.',
+    tok_print: 'Zu Tokens: <strong>Kontextfenster</strong> = das ganze Gespräch, das Claude auf einmal behält (1 Mio. ≈ ~1.500 Seiten); <strong>max. Ausgabe</strong> = eine Antwort (128K ≈ ~300 Seiten). Ein Token ≈ ¾ eines Wortes.'
 
   }
 };
@@ -936,19 +944,20 @@ function toggleLang() {
   applyLang(currentLang);
 }
 
-function toggleTokenHelp(e) {
+function toggleTokenHelp(e, btn) {
   if (e) e.stopPropagation();
-  var pop = document.getElementById('tokPop');
+  var pop = btn.nextElementSibling;
+  document.querySelectorAll('.tok-pop.open').forEach(function(p) {
+    if (p !== pop) p.classList.remove('open');
+  });
   if (pop) pop.classList.toggle('open');
 }
 
 document.addEventListener('click', function(e) {
-  var pop = document.getElementById('tokPop');
-  if (pop && pop.classList.contains('open') &&
-      !pop.contains(e.target) &&
-      !(e.target.classList && e.target.classList.contains('tok-help'))) {
-    pop.classList.remove('open');
-  }
+  if (e.target.classList && e.target.classList.contains('tok-help')) return;
+  document.querySelectorAll('.tok-pop.open').forEach(function(p) {
+    if (!p.contains(e.target)) p.classList.remove('open');
+  });
 });
 </script>
 </body>
