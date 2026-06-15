@@ -959,6 +959,48 @@ document.addEventListener('click', function(e) {
     if (!p.contains(e.target)) p.classList.remove('open');
   });
 });
+
+/* --- Adaptive scaling: shrink the fixed A4 page to fit the window (screen only) --- */
+(function() {
+  var page = document.querySelector('.page');
+  if (!page) return;
+
+  // Wrap the page so the scaled element keeps a correct layout footprint
+  // (CSS transforms don't reflow, which would otherwise leave dead space / scrollbars).
+  var wrap = document.createElement('div');
+  wrap.className = 'page-scale-wrap';
+  wrap.style.margin = '0 auto';
+  page.parentNode.insertBefore(wrap, page);
+  wrap.appendChild(page);
+  page.style.transformOrigin = 'top left';
+
+  function reset() {
+    page.style.transform = '';
+    wrap.style.width = '';
+    wrap.style.height = '';
+  }
+
+  function fitPage() {
+    reset();
+    var margin = 16; // breathing room on each side
+    var available = window.innerWidth - margin * 2;
+    var natW = page.offsetWidth;
+    var natH = page.offsetHeight;
+    var scale = Math.min(1, available / natW);
+    if (scale >= 1) return; // no scaling needed on wide screens
+    page.style.transform = 'scale(' + scale + ')';
+    wrap.style.width = (natW * scale) + 'px';
+    wrap.style.height = (natH * scale) + 'px';
+  }
+
+  window.addEventListener('resize', fitPage);
+  // Re-measure once fonts have loaded (affects page height).
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitPage);
+  // Never scale for printing — restore full size before, re-fit after.
+  window.addEventListener('beforeprint', reset);
+  window.addEventListener('afterprint', fitPage);
+  fitPage();
+})();
 </script>
 </body>
 </html>
