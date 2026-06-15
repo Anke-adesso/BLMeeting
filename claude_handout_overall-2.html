@@ -392,7 +392,7 @@
   <div class="intro-strip">
     <div class="intro-box">
       <div class="intro-label" data-key="intro1_label">What it is</div>
-      <div class="intro-text" data-key="intro1_text">Claude is Anthropic's AI — built for reasoning and problem-solving. Known for strong document handling and saying "I don't know" instead of making things up.</div>
+      <div class="intro-text" data-key="intro1_text">Claude is Anthropic's AI — built for reasoning and problem-solving. Known for strong document handling and for being more willing than most models to say "I'm not sure" rather than bluff.</div>
     </div>
     <div class="intro-box">
       <div class="intro-label" data-key="intro2_label">How you access it</div>
@@ -456,7 +456,7 @@
         <li><span class="tag">Projects</span> <span data-key="power1_text">Persistent workspace per engagement — files, context, preferences. No re-briefing every session.</span></li>
         <li><span class="tag">Instructions</span> <span data-key="power2_text">Set your role, tone, constraints once in Settings. Applied to every conversation.</span></li>
         <li><span class="tag">Iterate</span> <span data-key="power3_text">"Make this sharper." "The second paragraph isn't landing." "Sound less like AI wrote it."</span></li>
-        <li><span class="tag">Context</span> <span data-key="power4_text">Up to 1 million tokens — entire project docs and long specs in one conversation.</span></li>
+        <li><span class="tag">Context</span> <span data-key="power4_text">Up to 1 million tokens on the long-context models — entire project docs and long specs in one conversation.</span></li>
       </ul>
     </div>
     <div class="card accent-green">
@@ -465,7 +465,7 @@
       <ul class="blist">
         <li data-key="know1_text">No live internet by default — knowledge has a cutoff. Don't use for real-time data without web search enabled.</li>
         <li data-key="know2_text">Memory is off by default — but you can enable it in your settings. It's not total recall: Claude keeps the most important context based on what you mention most. For specific things you want remembered, use the edit function to add them explicitly.</li>
-        <li data-key="know3_text">Will say "I don't know" rather than guess. Intentional — and useful.</li>
+        <li data-key="know3_text">More likely to say "I don't know" than to bluff — but no AI is immune to confident mistakes. Verify anything that matters.</li>
         <li data-key="know4_text">MCP connection to M365 not yet available at adesso. Add-ins (Word, Outlook, Excel, PowerPoint) are live.</li>
       </ul>
     </div>
@@ -570,7 +570,7 @@
   <div class="card" style="margin-bottom:0;">
     <div class="card-eyebrow" data-key="r2_power_eyebrow">Power move</div>
     <div class="card-title" data-key="r2_power_title">1 million token context</div>
-    <div class="card-text" data-key="r2_power_text">Paste your entire codebase, a full spec, or a 500-page manual into one conversation. Claude holds it all. Ask questions, trace dependencies, get consistent answers across the whole thing.</div>
+    <div class="card-text" data-key="r2_power_text">Paste a large codebase, a full spec, or a long manual into one conversation and work across all of it — ask questions, trace dependencies, keep context that would otherwise span dozens of chats. The largest context windows depend on the model, so check which one you're on for very big inputs.</div>
   </div>
 </div>
 
@@ -586,10 +586,10 @@
     <div class="card-eyebrow" data-key="r3_diff_eyebrow">Where Claude wins</div>
     <div class="card-title" data-key="r3_diff_title">4 things Claude does better for this work</div>
     <div class="uc-grid" style="margin-top:2mm;margin-bottom:0;">
-      <div class="uc-item chatgpt-accent"><div class="uc-name" data-key="r3_d1_name">Honest when uncertain</div><div class="uc-desc" data-key="r3_d1_desc">Claude says "I don't know" instead of confidently making things up. For client work, that matters more than fluent hallucination.</div></div>
-      <div class="uc-item chatgpt-accent"><div class="uc-name" data-key="r3_d2_name">1 million token context</div><div class="uc-desc" data-key="r3_d2_desc">Entire project folder, long legal doc, full meeting backlog — one conversation. No chunking, no losing context mid-thread.</div></div>
+      <div class="uc-item chatgpt-accent"><div class="uc-name" data-key="r3_d1_name">Honest when uncertain</div><div class="uc-desc" data-key="r3_d1_desc">Claude is more likely to flag what it's unsure about than to answer confidently regardless. It still makes mistakes — but for client work, a model that signals doubt beats one that's smoothly wrong.</div></div>
+      <div class="uc-item chatgpt-accent"><div class="uc-name" data-key="r3_d2_name">1 million token context</div><div class="uc-desc" data-key="r3_d2_desc">Entire project folder, long legal doc, full meeting backlog — one conversation. Far less chunking and context-juggling than a small window forces.</div></div>
       <div class="uc-item chatgpt-accent"><div class="uc-name" data-key="r3_d3_name">Projects with memory</div><div class="uc-desc" data-key="r3_d3_desc">Brief it once on the engagement. It remembers. Same persona, same context — every session. Stop re-explaining the background.</div></div>
-      <div class="uc-item chatgpt-accent"><div class="uc-name" data-key="r3_d4_name">Writing that doesn't sound like AI</div><div class="uc-desc" data-key="r3_d4_desc">Ask Claude to "sound less like AI wrote it" — and it actually doesn't. Calibrated, nuanced, your tone. Not generic output.</div></div>
+      <div class="uc-item chatgpt-accent"><div class="uc-name" data-key="r3_d4_name">Writing that sounds less like AI</div><div class="uc-desc" data-key="r3_d4_desc">Ask it to "sound less like AI wrote this" and the output noticeably improves — more calibrated, closer to your tone. Not invisible, but a real step away from generic.</div></div>
     </div>
   </div>
   <div class="card accent-green" style="margin-bottom:3mm;">
@@ -638,7 +638,7 @@ var translations = {
     header_title: 'Claude for adesso',
     header_subtitle: 'Your AI at work — what it is, what it can do, and where to start.',
     intro1_label: 'What it is',
-    intro1_text: 'Claude is Anthropic\'s AI — built for reasoning and problem-solving. Known for strong document handling and saying "I don\'t know" instead of making things up.',
+    intro1_text: 'Claude is Anthropic\'s AI — built for reasoning and problem-solving. Known for strong document handling and for being more willing than most models to say "I\'m not sure" rather than bluff.',
     intro2_label: 'How you access it',
     intro2_text: 'Request your Enterprise account via the <strong>matrix24</strong> tool, then log in at <strong>claude.ai</strong> via adesso SSO. Add-ins available in Word, Outlook, Excel, and PowerPoint.',
     intro3_label: 'Your data',
@@ -676,12 +676,12 @@ var translations = {
     power1_text: 'Persistent workspace per engagement — files, context, preferences. No re-briefing every session.',
     power2_text: 'Set your role, tone, constraints once in Settings. Applied to every conversation.',
     power3_text: '"Make this sharper." "The second paragraph isn\'t landing." "Sound less like AI wrote it."',
-    power4_text: 'Up to 1 million tokens — entire project docs and long specs in one conversation.',
+    power4_text: 'Up to 1 million tokens on the long-context models — entire project docs and long specs in one conversation.',
     know_eyebrow: 'Good to know',
     know_title: "What Claude doesn't do",
     know1_text: 'No live internet by default — knowledge has a cutoff. Don\'t use for real-time data without web search enabled.',
     know2_text: 'Memory is off by default — but you can enable it in your settings. It\'s not total recall: Claude keeps the most important context based on what you mention most. For specific things you want remembered, use the edit function to add them explicitly.',
-    know3_text: 'Will say "I don\'t know" rather than guess. Intentional — and useful.',
+    know3_text: 'More likely to say "I don\'t know" than to bluff — but no AI is immune to confident mistakes. Verify anything that matters.',
     know4_text: 'MCP connection to M365 not yet available at adesso. Add-ins (Word, Outlook, Excel, PowerPoint) are live.',
     footer1_label: 'Access',
     footer1_text: '<strong>claude.ai</strong> — request via matrix24, log in via adesso SSO. Add-ins in Word, Outlook, Excel, and PowerPoint.',
@@ -726,15 +726,15 @@ var translations = {
     r2_p2_label: 'Diagram', r2_p2: '"Generate a Mermaid sequence diagram for this flow: [describe your flow in plain text]"',
     r2_p3_label: 'Quick tool', r2_p3: '"Build me a single-file HTML tool that [does X]. No frameworks. Should work offline."',
     r2_power_eyebrow: 'Power move', r2_power_title: '1 million token context',
-    r2_power_text: 'Paste your entire codebase, a full spec, or a 500-page manual into one conversation. Claude holds it all. Ask questions, trace dependencies, get consistent answers across the whole thing.',
+    r2_power_text: 'Paste a large codebase, a full spec, or a long manual into one conversation and work across all of it — ask questions, trace dependencies, keep context that would otherwise span dozens of chats. The largest context windows depend on the model, so check which one you\'re on for very big inputs.',
     r3_eyebrow: 'Already using AI tools',
     r3_title: 'One tool is not a strategy.',
     r3_sub: 'You\'re already using AI — that\'s the right instinct. The next step is knowing which tool does what well, and stopping to use one where another wins.',
     r3_diff_eyebrow: 'Where Claude wins', r3_diff_title: '4 things Claude does better for consulting work',
-    r3_d1_name: 'Honest when uncertain', r3_d1_desc: 'Claude says "I don\'t know" instead of confidently making things up. For client work, that matters more than fluent hallucination.',
-    r3_d2_name: '1 million token context', r3_d2_desc: 'Entire project folder, long legal doc, full meeting backlog — one conversation. No chunking, no losing context mid-thread.',
+    r3_d1_name: 'Honest when uncertain', r3_d1_desc: 'Claude is more likely to flag what it\'s unsure about than to answer confidently regardless. It still makes mistakes — but for client work, a model that signals doubt beats one that\'s smoothly wrong.',
+    r3_d2_name: '1 million token context', r3_d2_desc: 'Entire project folder, long legal doc, full meeting backlog — one conversation. Far less chunking and context-juggling than a small window forces.',
     r3_d3_name: 'Projects with memory', r3_d3_desc: 'Brief it once on the engagement. It remembers. Same persona, same context — every session. Stop re-explaining the background.',
-    r3_d4_name: 'Writing that doesn\'t sound like AI', r3_d4_desc: 'Ask Claude to "sound less like AI wrote it" — and it actually doesn\'t. Calibrated, nuanced, your tone. Not generic output.',
+    r3_d4_name: 'Writing that sounds less like AI', r3_d4_desc: 'Ask it to "sound less like AI wrote this" and the output noticeably improves — more calibrated, closer to your tone. Not invisible, but a real step away from generic.',
     r3_comp_eyebrow: 'Honest take', r3_comp_title: 'Different tools. Different strengths. Use both.',
     r3_claude_label: 'Use Claude for', r3_claude_text: 'Document work, long-context reasoning, client comms, anything where being wrong is expensive.',
     r3_chatgpt_label: 'Use other AI tools for', r3_chatgpt_text: 'Image generation, voice interfaces, specialised plugins, or workflows you\'ve already built somewhere else.',
@@ -751,7 +751,7 @@ var translations = {
     header_title: 'Claude für adesso',
     header_subtitle: 'Dein KI-Assistent im Arbeitsalltag — was er ist, was er kann und wie du anfängst.',
     intro1_label: 'Was es ist',
-    intro1_text: 'Claude ist Anthropics KI — gebaut für Analyse und Problemlösung. Bekannt für starke Dokumentenverarbeitung und dafür, "Ich weiß es nicht" zu sagen statt etwas zu erfinden.',
+    intro1_text: 'Claude ist Anthropics KI — gebaut für Analyse und Problemlösung. Bekannt für starke Dokumentenverarbeitung und dafür, eher als die meisten Modelle "Ich bin nicht sicher" zu sagen statt zu bluffen.',
     intro2_label: 'Wie du zugreifst',
     intro2_text: 'Enterprise-Zugang per <strong>matrix24</strong>-Tool beantragen, dann bei <strong>claude.ai</strong> per adesso SSO anmelden. Add-ins für Word, Outlook, Excel und PowerPoint verfügbar.',
     intro3_label: 'Deine Daten',
@@ -789,12 +789,12 @@ var translations = {
     power1_text: 'Dauerhafter Workspace je Thema — Dateien, Kontext, Präferenzen. Kein erneutes Einbriefieren.',
     power2_text: 'Rolle, Ton und Vorgaben einmalig in den Einstellungen setzen. Gilt für jedes Gespräch.',
     power3_text: '"Mach das schärfer." "Der zweite Absatz zieht nicht." "Klingt zu sehr nach KI."',
-    power4_text: 'Bis zu 1 Million Tokens — ganze Projektdokumente und lange Spezifikationen in einem Gespräch.',
+    power4_text: 'Bis zu 1 Million Tokens auf den Long-Context-Modellen — ganze Projektdokumente und lange Spezifikationen in einem Gespräch.',
     know_eyebrow: 'Gut zu wissen',
     know_title: 'Was Claude nicht tut',
     know1_text: 'Standardmäßig kein Live-Internet — Wissen hat einen Stichtag. Nicht für Echtzeitdaten ohne aktivierte Web-Suche nutzen.',
     know2_text: 'Gedächtnis ist standardmäßig deaktiviert — aber du kannst es in den Einstellungen aktivieren. Es ist keine Vollspeicherung: Claude merkt sich vor allem, was du häufig erwähnst. Für Dinge, die du gezielt speichern möchtest, nutze die Bearbeitungsfunktion.',
-    know3_text: '"Ich weiß es nicht" statt raten. Absichtlich — und nützlich.',
+    know3_text: 'Sagt eher "Ich weiß es nicht" als zu bluffen — aber kein KI-Modell ist vor selbstbewussten Fehlern gefeit. Wichtiges immer prüfen.',
     know4_text: 'MCP-Verbindung zu M365 bei adesso noch nicht verfügbar. Add-ins (Word, Outlook, Excel, PowerPoint) sind aktiv.',
     footer1_label: 'Zugang',
     footer1_text: '<strong>claude.ai</strong> — Zugang per matrix24 beantragen, per adesso SSO anmelden. Add-ins für Word, Outlook, Excel und PowerPoint.',
@@ -839,15 +839,15 @@ var translations = {
     r2_p2_label: 'Diagramm', r2_p2: '"Erstelle ein Mermaid-Sequenzdiagramm für diesen Flow: [Ablauf in Klartext beschreiben]"',
     r2_p3_label: 'Schnelles Tool', r2_p3: '"Erstelle mir ein Single-File HTML-Tool das [X macht]. Keine Frameworks. Soll offline funktionieren."',
     r2_power_eyebrow: 'Power-Move', r2_power_title: '1 Million Token Kontext',
-    r2_power_text: 'Die gesamte Codebasis, ein vollständiges Spec-Dokument oder ein 500-seitiges Handbuch in einem Gespräch. Claude hält alles. Fragen stellen, Abhängigkeiten nachverfolgen, konsistente Antworten über das Ganze hinweg.',
+    r2_power_text: 'Eine große Codebasis, ein vollständiges Spec-Dokument oder ein langes Handbuch in einem Gespräch — und über das Ganze hinweg arbeiten: Fragen stellen, Abhängigkeiten nachverfolgen, Kontext halten, der sonst dutzende Chats umfassen würde. Die größten Kontextfenster hängen vom Modell ab — bei sehr großen Eingaben prüfen, welches du nutzt.',
     r3_eyebrow: 'Nutzt bereits KI-Tools',
     r3_title: 'Ein Tool ist keine Strategie.',
     r3_sub: 'Du nutzt bereits KI — das ist der richtige Instinkt. Der nächste Schritt: wissen, welches Tool was gut kann, und aufhören, eines zu nutzen, wo ein anderes gewinnt.',
     r3_diff_eyebrow: 'Wo Claude gewinnt', r3_diff_title: '4 Dinge, die Claude für Beratungsarbeit besser macht',
-    r3_d1_name: 'Ehrlich bei Unsicherheit', r3_d1_desc: 'Claude sagt "Ich weiß es nicht" statt selbstbewusst zu erfinden. Für Kundenarbeit ist das wichtiger als flüssige Halluzination.',
-    r3_d2_name: '1 Million Token Kontext', r3_d2_desc: 'Gesamter Projektordner, langes Rechtsdokument, vollständiges Meeting-Backlog — ein Gespräch. Kein Aufteilen, kein Kontextverlust.',
+    r3_d1_name: 'Ehrlich bei Unsicherheit', r3_d1_desc: 'Claude weist eher auf Unsicherheiten hin, statt unbeirrt selbstbewusst zu antworten. Fehler macht es trotzdem — aber für Kundenarbeit ist ein Modell, das Zweifel signalisiert, besser als eines, das souverän danebenliegt.',
+    r3_d2_name: '1 Million Token Kontext', r3_d2_desc: 'Gesamter Projektordner, langes Rechtsdokument, vollständiges Meeting-Backlog — ein Gespräch. Deutlich weniger Aufteilen und Kontext-Jonglieren als bei einem kleinen Fenster.',
     r3_d3_name: 'Projects mit Gedächtnis', r3_d3_desc: 'Einmal briefen. Es erinnert sich. Gleiche Persona, gleicher Kontext — jede Session. Schluss mit dem ständigen Neueinbriefieren.',
-    r3_d4_name: 'Texte die nicht nach KI klingen', r3_d4_desc: 'Claude sagen "klingt nicht nach KI" — und es klingt tatsächlich nicht so. Kalibriert, nuanciert, dein Ton. Kein generischer Output.',
+    r3_d4_name: 'Texte die weniger nach KI klingen', r3_d4_desc: 'Bitte es, "weniger nach KI zu klingen" — und der Text wird spürbar besser: kalibrierter, näher an deinem Ton. Nicht unsichtbar, aber ein echter Schritt weg von generisch.',
     r3_comp_eyebrow: 'Ehrliche Einschätzung', r3_comp_title: 'Verschiedene Tools. Verschiedene Stärken. Beides nutzen.',
     r3_claude_label: 'Claude nutzen für', r3_claude_text: 'Dokumentenarbeit, langen Kontext, Kundenkommunikation — alles wo Fehler teuer sind.',
     r3_chatgpt_label: 'Andere KI-Tools nutzen für', r3_chatgpt_text: 'Bildgenerierung, Sprachinterfaces, spezialisierte Plugins oder Workflows, die du woanders bereits aufgebaut hast.',
