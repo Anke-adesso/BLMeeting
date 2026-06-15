@@ -17,6 +17,8 @@ Open the HTML file in a browser. Use the **Print** button in the top bar to expo
 
 Toggle between **English and German** using the language button in the top bar.
 
+The page is **adaptive to the window size**: on screens narrower than A4 it scales down proportionally to fit the viewport (no horizontal scrolling), while wide screens show it at full size. Scaling applies on screen only — printing and PDF export always use the full A4 layout.
+
 ## Access at adesso
 
 Request access via **matrix24**, then log in at [claude.ai](https://claude.ai) via adesso SSO.
