@@ -255,6 +255,38 @@
 
 
   /* ─── LINKS SECTION ─── */
+  .dl-section {
+    margin: 0 10mm 3mm;
+    background: #EEF5FC;
+    border: 1px solid #C8D4DF;
+    border-radius: 3px;
+    padding: 3.5mm 5mm;
+    display: flex;
+    align-items: center;
+    gap: 4mm;
+  }
+  @media print { .dl-section { display: none !important; } }
+  .dl-section-label {
+    font-family: "Fira Sans Condensed", "Fira Sans", Lato, Arial Narrow, sans-serif;
+    font-size: 6.5pt; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; color: #887D75;
+    white-space: nowrap;
+  }
+  .dl-meta { flex: 1; display: flex; flex-direction: column; gap: 0.8mm; }
+  .dl-title { font-size: 8.5pt; font-weight: 700; color: #1a1a1a; }
+  .dl-desc { font-size: 7.5pt; color: #5A524C; line-height: 1.35; }
+  .dl-link {
+    display: inline-flex; align-items: center;
+    background: #006EC7; color: #fff;
+    border-radius: 3px; padding: 2mm 4mm;
+    font-family: "Fira Sans", Lato, Arial, sans-serif;
+    font-size: 8pt; font-weight: 700;
+    text-decoration: none; white-space: nowrap;
+    letter-spacing: 0.02em;
+    transition: background 0.12s;
+  }
+  .dl-link:hover { background: #005CAB; }
+
   .links-section {
     margin: 0 10mm 3mm;
     background: #F0EDE9;
@@ -550,6 +582,16 @@
 
 
 
+<!-- DOWNLOAD -->
+<div class="dl-section">
+  <span class="dl-section-label" data-key="dl_label">Download</span>
+  <div class="dl-meta">
+    <div class="dl-title" data-key="dl_title">Claude How-To at adesso</div>
+    <div class="dl-desc" data-key="dl_desc">Step-by-step guide for getting started — from ordering a licence to your first practical prompts. 12 pages, PDF.</div>
+  </div>
+  <a class="dl-link" href="./claudehowtoadesso.pdf" download="claudehowtoadesso.pdf"><span data-key="dl_link">⬇ PDF</span></a>
+</div>
+
 <!-- COMMUNITY LINKS -->
 <div class="links-section">
   <span class="links-label" data-key="links_label">Community &amp; Resources</span>
@@ -714,6 +756,10 @@ var currentLang = 'en';
 var translations = {
   en: {
     printbar_hint: 'Open in Chrome for best results → then click Print',
+    dl_label: 'Download',
+    dl_title: 'Claude How-To at adesso',
+    dl_desc: 'Your first look at Claude: what Skills, Projects, and Cowork do — and how to begin.',
+    dl_link: '⬇ PDF',
     header_eyebrow: 'adesso MS Business Line · June 2026',
     header_title: 'Claude for adesso',
     header_subtitle: 'Your AI at work — what it is, what it can do, and where to start.',
@@ -834,6 +880,10 @@ var translations = {
   },
   de: {
     printbar_hint: 'In Chrome öffnen für beste Darstellung → dann Drucken klicken',
+    dl_label: 'Download',
+    dl_title: 'Claude How-To bei adesso',
+    dl_desc: 'Ein erster Blick auf Claude: was Skills, Projects und Cowork leisten — und wie du anfängst.',
+    dl_link: '⬇ PDF',
     header_eyebrow: 'adesso MS Business Line · Juni 2026',
     header_title: 'Claude für adesso',
     header_subtitle: 'Dein KI-Assistent im Arbeitsalltag — was er ist, was er kann und wie du anfängst.',
@@ -958,6 +1008,7 @@ var translations = {
 function showRole(role) {
   document.querySelector('.body').style.display = 'none';
   document.querySelector('.journey-section').style.display = 'none';
+  document.querySelector('.dl-section').style.display = 'none';
   document.querySelector('.links-section').style.display = 'none';
   document.querySelectorAll('.role-view').forEach(function(el) { el.classList.remove('active'); });
   document.getElementById('role-' + role).classList.add('active');
@@ -967,6 +1018,7 @@ function showRole(role) {
 function backToOverview() {
   document.querySelector('.body').style.display = '';
   document.querySelector('.journey-section').style.display = '';
+  document.querySelector('.dl-section').style.display = '';
   document.querySelector('.links-section').style.display = '';
   document.querySelectorAll('.role-view').forEach(function(el) { el.classList.remove('active'); });
   window.scrollTo(0, 0);
