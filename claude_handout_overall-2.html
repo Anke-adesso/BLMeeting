@@ -582,32 +582,6 @@
 
 
 
-<!-- DOWNLOAD -->
-<div class="dl-section">
-  <span class="dl-section-label" data-key="dl_label">Download</span>
-  <div class="dl-meta">
-    <div class="dl-title" data-key="dl_title">Claude How-To at adesso</div>
-    <div class="dl-desc" data-key="dl_desc">Step-by-step guide for getting started — from ordering a licence to your first practical prompts. 12 pages, PDF.</div>
-  </div>
-  <a class="dl-link" href="./claudehowtoadesso.pdf" download="claudehowtoadesso.pdf"><span data-key="dl_link">⬇ PDF</span></a>
-</div>
-
-<!-- COMMUNITY LINKS -->
-<div class="links-section">
-  <span class="links-label" data-key="links_label">Community &amp; Resources</span>
-  <div class="links-chips">
-    <a class="link-chip" href="https://teams.microsoft.com/l/channel/19%3A884ff6e79daf41c0854d229d7602ad95%40thread.tacv2/%F0%9F%92%BB%20Microsoft%20AI?groupId=9e331830-ebe9-4f83-a15b-069269403655&tenantId=3d355765-67d9-47cd-9c7a-bf31179f56eb" target="_blank">
-      <span class="chip-icon">💬</span><span data-key="link1_label">MS AI Peer Group</span>
-    </a>
-    <a class="link-chip" href="https://adgrowth.adesso-group.com/learn/dashboard/channel/42" target="_blank">
-      <span class="chip-icon">📚</span><span data-key="link2_label">Claude Channel on adgrowth</span>
-    </a>
-    <a class="link-chip" href="https://o365adessogroup.sharepoint.com/:u:/r/sites/microsoft/SitePages/AI%20-%20LOB%20MS%20goes%20AI%20-%20Landingpage.aspx?csf=1&web=1&e=HnYmTa" target="_blank">
-      <span class="chip-icon">🌐</span><span data-key="link3_label">LOB MS goes AI</span>
-    </a>
-  </div>
-</div>
-
 <!-- FIND YOUR JOURNEY -->
 <div class="journey-section">
   <div class="journey-title" data-key="journey_title">Find your journey</div>
@@ -728,6 +702,32 @@
     <div class="prompt-label" data-key="r3_setup_label">Paste in Settings &#8594; Custom instructions</div>
     <div class="prompt-box" style="margin-bottom:2mm;"><code data-key="r3_setup_prompt">"You are my senior thought partner. I'm an IT consultant at adesso SE. Be direct, flag when I'm wrong, skip the preamble. Default language: English unless I write in German."</code></div>
     <div class="card-text" data-key="r3_setup_note">Every conversation starts calibrated. No re-briefing, no generic output.</div>
+  </div>
+</div>
+
+<!-- DOWNLOAD -->
+<div class="dl-section">
+  <span class="dl-section-label" data-key="dl_label">Download</span>
+  <div class="dl-meta">
+    <div class="dl-title" data-key="dl_title">Claude How-To at adesso</div>
+    <div class="dl-desc" data-key="dl_desc">Your first look at Claude: what Skills, Projects, and Cowork do — and how to begin.</div>
+  </div>
+  <a class="dl-link" href="./claudehowtoadesso.pdf" download="claudehowtoadesso.pdf"><span data-key="dl_link">⬇ PDF</span></a>
+</div>
+
+<!-- COMMUNITY LINKS -->
+<div class="links-section">
+  <span class="links-label" data-key="links_label">Community &amp; Resources</span>
+  <div class="links-chips">
+    <a class="link-chip" href="https://teams.microsoft.com/l/channel/19%3A884ff6e79daf41c0854d229d7602ad95%40thread.tacv2/%F0%9F%92%BB%20Microsoft%20AI?groupId=9e331830-ebe9-4f83-a15b-069269403655&tenantId=3d355765-67d9-47cd-9c7a-bf31179f56eb" target="_blank">
+      <span class="chip-icon">💬</span><span data-key="link1_label">MS AI Peer Group</span>
+    </a>
+    <a class="link-chip" href="https://adgrowth.adesso-group.com/learn/dashboard/channel/42" target="_blank">
+      <span class="chip-icon">📚</span><span data-key="link2_label">Claude Channel on adgrowth</span>
+    </a>
+    <a class="link-chip" href="https://o365adessogroup.sharepoint.com/:u:/r/sites/microsoft/SitePages/AI%20-%20LOB%20MS%20goes%20AI%20-%20Landingpage.aspx?csf=1&web=1&e=HnYmTa" target="_blank">
+      <span class="chip-icon">🌐</span><span data-key="link3_label">LOB MS goes AI</span>
+    </a>
   </div>
 </div>
 
@@ -1040,6 +1040,10 @@ function toggleLang() {
   currentLang = currentLang === 'en' ? 'de' : 'en';
   applyLang(currentLang);
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+  applyLang(currentLang);
+});
 
 function toggleTokenHelp(e, btn) {
   if (e) e.stopPropagation();
